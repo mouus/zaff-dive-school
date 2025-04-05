@@ -112,7 +112,7 @@ export default function HomePage() {
     },
   ]
 
-  const galleryImages = ["/ray.jpg", "/fishes.jpg", "/loneshark.jpg", "/sharktop.jpg", "/fishes2.jpg", "/img1.jpg"]
+  const galleryImages = ["/ray.jpg", "/fishes.JPG", "/loneshark.JPG", "/sharktop.JPG", "/fishes2.JPG", "/img1.jpg"]
 
   return (
     <div className="relative min-h-screen text-center overflow-hidden">
