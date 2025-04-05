@@ -35,7 +35,7 @@ export default function HomePage() {
       title: "For Beginners",
       description:
         "Perfect introductory experiences for those who want to try diving for the first time without committing to a full certification course.",
-      image: "/img-10.jpg",
+      image: "/img-10.JPG",
       icon: <FaWater className="h-6 w-6 text-white" />,
       duration: "45-60 minutes",
       price: "$50-$80",

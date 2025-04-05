@@ -40,7 +40,7 @@ export default function AboutPage() {
       title: "Tiger Shark Discovery",
       description:
         "Discovery of Tiger sharks near the harbor of Fuvahmulah, marking a pivotal moment for diving in the region.",
-      image: "/img-7.jpg",
+      image: "/img-7.JPG",
     },
     {
       year: "2013",
@@ -54,7 +54,7 @@ export default function AboutPage() {
       title: "Growth Period",
       description:
         "Local entrepreneurs started investing in the diving industry, opening new dive centers and guest houses.",
-      image: "/img-10.jpg",
+      image: "/img-10.JPG",
     },
     {
       year: "Present",
@@ -67,42 +67,42 @@ export default function AboutPage() {
 
   const journeyGallery = [
     {
-      image: "/img.jpg",
+      image: "/img.JPG",
       caption: "Early days of diving in Fuvahmulah",
       year: "2011",
     },
     {
-      image: "/img-2.jpg",
+      image: "/img-2.JPG",
       caption: "Beautiful Fuvahmulah Island",
       year: "2012",
     },
     {
-      image: "/img-7.jpg",
+      image: "/img-7.JPG",
       caption: "First Tiger shark encounters",
       year: "2013",
     },
     {
-      image: "/img-3.png",
+      image: "/img-3.PNG",
       caption: "Opening our first dive center",
       year: "2014",
     },
     {
-      image: "/img-5.jpg",
+      image: "/img-5.JPG",
       caption: "Growing our team of instructors",
       year: "2015",
     },
     {
-      image: "/img-6.jpg",
+      image: "/img-6.JPG",
       caption: "Gaining international recognition",
       year: "2016",
     },
     {
-      image: "/img-7.jpg",
+      image: "/img-7.JPG",
       caption: "Our shark conservation initiatives",
       year: "2018",
     },
     {
-      image: "/instruct.jpg",
+      image: "/instruct.JPG",
       caption: "Our operations today",
       year: "Present",
     },
@@ -427,7 +427,7 @@ export default function AboutPage() {
               </div>
 
               <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden order-1 md:order-2">
-                <Image src="/fvm.jpg" alt="Fuvahmulah Today" fill className="object-cover" />
+                <Image src="/fvm.JPG" alt="Fuvahmulah Today" fill className="object-cover" />
               </div>
             </div>
           </div>
