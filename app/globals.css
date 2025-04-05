@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+:root {
+    --custom-blue: #0b385b;
+  }
+  
+  body {
+    font-family: var(--font-orbitron);
+  }
