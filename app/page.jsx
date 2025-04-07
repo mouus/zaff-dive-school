@@ -22,12 +22,76 @@ import {
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
+// Add orbital animations
+const orbitalAnimations = `
+  @keyframes orbit-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(100px, 50px) scale(1.2); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes orbit-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-80px, -40px) scale(1.5); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes orbit-3 {
+    0% { transform: translate(0, 0) rotate(0); }
+    50% { transform: translate(60px, -60px) rotate(180deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+  }
+  @keyframes orbit-4 {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, 30px) scale(1.2); }
+    66% { transform: translate(-50px, 60px) scale(0.8); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes orbit-5 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-40px, -80px) scale(1.3); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes orbit-6 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(70px, -20px) scale(1.1); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+`
+
+// NASA font style
+const nasaFontStyle = `
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+  
+  .nasa-font {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+`
+
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState("beginners")
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     setIsVisible(true)
+
+    // Inject orbital animations and NASA font
+    const style = document.createElement("style")
+    style.innerHTML = orbitalAnimations + nasaFontStyle
+    document.head.appendChild(style)
+
+    // Add Google Fonts link
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
+    document.head.appendChild(link)
+
+    return () => {
+      document.head.removeChild(style)
+      if (document.head.contains(link)) {
+        document.head.removeChild(link)
+      }
+    }
   }, [])
 
   const divingCourses = {
@@ -126,15 +190,15 @@ export default function HomePage() {
         </video>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative py-42 h-[600px] flex items-center justify-center px-4">
+      {/* Hero Section with Orbital Effect */}
+      <section className="relative py-42 h-[600px] flex items-center justify-center px-4 overflow-hidden">
         <div
-          className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
+          className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"} relative z-10`}
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="nasa-font text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">
             Discover the Underwater Paradise of Fuvahmulah
           </h1>
-          <p className="text-xl md:text-2xl text-white mb-8">
+          <p className="nasa-font text-xl md:text-2xl text-white mb-8 tracking-wide">
             Experience world-class diving with tiger sharks and vibrant marine life in the pristine waters of the
             Maldives
           </p>
@@ -145,10 +209,17 @@ export default function HomePage() {
             >
               Explore Courses <FaArrowRight />
             </Link>
-            {/* <Link href="/contact" className="bg-transparent hover:bg-white/20 text-white border-2 border-white font-bold py-3 px-8 rounded-full transition-colors">
-              Book a Dive
-            </Link> */}
           </div>
+        </div>
+
+        {/* Orbital Elements */}
+        <div className="absolute inset-0 w-full h-full">
+          <div className="absolute w-20 h-20 bg-blue-500/30 rounded-full top-1/4 left-1/4 animate-orbit-1"></div>
+          <div className="absolute w-12 h-12 bg-teal-500/30 rounded-full bottom-1/3 right-1/3 animate-orbit-2"></div>
+          <div className="absolute w-16 h-16 bg-cyan-500/30 rounded-full top-1/2 right-1/4 animate-orbit-3"></div>
+          <div className="absolute w-24 h-24 bg-indigo-500/20 rounded-full bottom-1/4 left-1/3 animate-orbit-4"></div>
+          <div className="absolute w-10 h-10 bg-white/20 rounded-full top-1/3 right-1/4 animate-orbit-5"></div>
+          <div className="absolute w-14 h-14 bg-blue-400/20 rounded-full bottom-1/2 left-1/4 animate-orbit-6"></div>
         </div>
       </section>
 
@@ -234,8 +305,9 @@ export default function HomePage() {
                 <button
                   key={key}
                   onClick={() => setActiveTab(key)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-colors ${activeTab === key ? "bg-[#0b385b] text-white" : "bg-white text-[#0b385b] hover:bg-gray-200"
-                    }`}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-colors ${
+                    activeTab === key ? "bg-[#0b385b] text-white" : "bg-white text-[#0b385b] hover:bg-gray-200"
+                  }`}
                 >
                   {course.icon}
                   {course.title}

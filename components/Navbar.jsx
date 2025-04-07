@@ -5,6 +5,17 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube, FaBars, FaTimes } from "react-icons/fa"
 
+// NASA font style
+const nasaFontStyle = `
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+  
+  .nasa-font {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+`
+
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -48,6 +59,27 @@ function Navbar() {
     }
   }, [isMenuOpen])
 
+  // Load NASA font
+  useEffect(() => {
+    // Inject NASA font style
+    const style = document.createElement("style")
+    style.innerHTML = nasaFontStyle
+    document.head.appendChild(style)
+
+    // Add Google Fonts link
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
+    document.head.appendChild(link)
+
+    return () => {
+      document.head.removeChild(style)
+      if (document.head.contains(link)) {
+        document.head.removeChild(link)
+      }
+    }
+  }, [])
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 w-full px-4 py-3 transition-all duration-300 ${
@@ -67,17 +99,17 @@ function Navbar() {
                 className="rounded-full md:w-[80px] md:h-[80px]"
               />
             </Link>
-            <p className="text-lg sm:text-2xl md:text-3xl font-bold text-white hidden sm:block">
+            <p className="nasa-font text-lg sm:text-2xl md:text-3xl font-bold text-white hidden sm:block tracking-wider">
               <span className="text-white">Scubachannel</span> Fuvahmulah
             </p>
-            <p className="text-lg font-bold text-white sm:hidden">
+            <p className="nasa-font text-lg font-bold text-white sm:hidden tracking-wider">
               <span className="text-white">Scubachannel</span>
             </p>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <div className="flex space-x-6 text-white text-lg">
+            <div className="flex space-x-6 text-white text-lg nasa-font tracking-wider">
               <Link href="/" className="hover:text-gray-300 transition-colors">
                 Home
               </Link>
@@ -127,7 +159,7 @@ function Navbar() {
         } md:hidden pt-20`}
       >
         <div className="flex flex-col h-full">
-          <nav className="flex flex-col items-center gap-6 py-8 text-white text-xl">
+          <nav className="flex flex-col items-center gap-6 py-8 text-white text-xl nasa-font tracking-wider">
             <Link href="/" className="hover:text-gray-300 transition-colors py-2" onClick={() => setIsMenuOpen(false)}>
               Home
             </Link>
@@ -186,7 +218,7 @@ function Navbar() {
             </Link>
           </div>
 
-          <div className="mt-auto p-6 text-center text-white/70">
+          <div className="mt-auto p-6 text-center text-white/70 nasa-font">
             <p>© {new Date().getFullYear()} Scubachannel Fuvahmulah</p>
           </div>
         </div>

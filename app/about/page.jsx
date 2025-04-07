@@ -18,6 +18,17 @@ import {
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
+// NASA font style
+const nasaFontStyle = `
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+  
+  .nasa-font {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+`
+
 export default function AboutPage() {
   const [isVisible, setIsVisible] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -25,6 +36,24 @@ export default function AboutPage() {
 
   useEffect(() => {
     setIsVisible(true)
+
+    // Inject NASA font style
+    const style = document.createElement("style")
+    style.innerHTML = nasaFontStyle
+    document.head.appendChild(style)
+
+    // Add Google Fonts link
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
+    document.head.appendChild(link)
+
+    return () => {
+      document.head.removeChild(style)
+      if (document.head.contains(link)) {
+        document.head.removeChild(link)
+      }
+    }
   }, [])
 
   const milestones = [
@@ -67,7 +96,7 @@ export default function AboutPage() {
 
   const journeyGallery = [
     {
-      image: "/img.JPG",
+      image: "/img.jpg",
       caption: "Early days of diving in Fuvahmulah",
       year: "2011",
     },
@@ -133,24 +162,18 @@ export default function AboutPage() {
 
       {/* Background Image */}
       <div className="absolute inset-0 -z-10 bg-black">
-        <div className="relative w-full h-full">
-          <Image
-            src="/shark-2.jpg"
-            alt="Underwater Background"
-            fill
-            sizes="100vw"
-            className="object-cover opacity-50"
-          />
+        <div className="relative w-full h-[568px]">
+          <Image src="/loneshark.JPG" alt="Underwater Background" fill className="object-cover opacity-50" />
         </div>
       </div>
 
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center px-4">
+      <section className="relative h-[80vh] flex items-center justify-center px-4">
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Our Story</h1>
-          <p className="text-xl md:text-2xl text-white mb-8">
+          <h1 className="nasa-font text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Our Story</h1>
+          <p className="nasa-font text-xl md:text-2xl text-white mb-8 tracking-wide">
             Discover how Fuvahmulah became the world's premier Tiger shark diving destination
           </p>
         </div>

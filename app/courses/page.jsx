@@ -21,18 +21,50 @@ import {
   FaDollarSign,
   FaChild,
   FaBook,
+  FaHotel,
+  FaPlus,
 } from "react-icons/fa"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+
+// NASA font style
+const nasaFontStyle = `
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+  
+  .nasa-font {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+`
 
 export default function CoursesPage() {
   const [isVisible, setIsVisible] = useState(false)
   const [activeTab, setActiveTab] = useState("beginners")
   const [openAccordions, setOpenAccordions] = useState({})
   const [openFaqs, setOpenFaqs] = useState({})
+  const [activePriceTab, setActivePriceTab] = useState("individual")
 
   useEffect(() => {
     setIsVisible(true)
+
+    // Inject NASA font style
+    const style = document.createElement("style")
+    style.innerHTML = nasaFontStyle
+    document.head.appendChild(style)
+
+    // Add Google Fonts link
+    const link = document.createElement("link")
+    link.rel = "stylesheet"
+    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
+    document.head.appendChild(link)
+
+    return () => {
+      document.head.removeChild(style)
+      if (document.head.contains(link)) {
+        document.head.removeChild(link)
+      }
+    }
   }, [])
 
   const toggleAccordion = (id) => {
@@ -445,31 +477,226 @@ export default function CoursesPage() {
     },
   ]
 
+  // New dive packages data
+  const divePackages = [
+    {
+      nights: 3,
+      dives: 6,
+      price: {
+        single: 600,
+        double: 1000,
+        nonDiver: 252,
+      },
+      includes: [
+        "Accommodation",
+        "Hotel Room",
+        "Breakfast",
+        "Hotel arrival & departure",
+        "For diving Pick-up and drop-off",
+        "2 Dive days (3 Dives per day)",
+        "2 Tiger Shark dive",
+        "4 Reef dives",
+      ],
+    },
+    {
+      nights: 4,
+      dives: 9,
+      price: {
+        single: 900,
+        double: 1650,
+        nonDiver: 336,
+      },
+      includes: [
+        "Accommodation",
+        "Hotel Room",
+        "Breakfast",
+        "Hotel arrival & departure",
+        "For diving Pick-up and drop-off",
+        "3 Dive days (3 Dives per day)",
+        "3 Tiger Shark dives",
+        "6 Reef dives",
+      ],
+    },
+    {
+      nights: 5,
+      dives: 9,
+      price: {
+        single: 990,
+        double: 1800,
+        nonDiver: 420,
+      },
+      includes: [
+        "Accommodation",
+        "Hotel Room",
+        "Breakfast",
+        "Hotel arrival & departure",
+        "For diving Pick-up and drop-off",
+        "3 Dive days (3 Dives per day)",
+        "3 Tiger Shark dives",
+        "6 Reef dives",
+      ],
+    },
+    {
+      nights: 6,
+      dives: 12,
+      price: {
+        single: 1200,
+        double: 2150,
+        nonDiver: 504,
+      },
+      includes: [
+        "Accommodation",
+        "Hotel Room",
+        "Breakfast",
+        "Hotel arrival & departure",
+        "For diving Pick-up and drop-off",
+        "4 Dive days (3 Dives per day)",
+        "4 Tiger Shark dives",
+        "8 Reef dives",
+      ],
+    },
+    {
+      nights: 7,
+      dives: 15,
+      price: {
+        single: 1475,
+        double: 2300,
+        nonDiver: 588,
+      },
+      includes: [
+        "Accommodation",
+        "Hotel Room",
+        "Breakfast",
+        "Hotel arrival & departure",
+        "For diving Pick-up and drop-off",
+        "5 Dive days (3 Dives per day)",
+        "5 Tiger Shark dives",
+        "10 Reef dives",
+        "Complimentary sunset cruise",
+      ],
+      popular: true,
+    },
+    {
+      nights: 8,
+      dives: 18,
+      price: {
+        single: 1750,
+        double: 3157,
+        nonDiver: 672,
+      },
+      includes: [
+        "Accommodation",
+        "Hotel Room",
+        "Breakfast",
+        "Hotel arrival & departure",
+        "For diving Pick-up and drop-off",
+        "6 Dive days (3 Dives per day)",
+        "6 Tiger Shark dives",
+        "12 Reef dives",
+        "Complimentary sunset cruise",
+      ],
+    },
+    {
+      nights: 9,
+      dives: 21,
+      price: {
+        single: 2020,
+        double: 3780,
+        nonDiver: 756,
+      },
+      includes: [
+        "Accommodation",
+        "Hotel Room",
+        "Breakfast",
+        "Hotel arrival & departure",
+        "For diving Pick-up and drop-off",
+        "7 Dive days (3 Dives per day)",
+        "7 Tiger Shark dives",
+        "14 Reef dives",
+        "Complimentary sunset cruise",
+      ],
+    },
+    {
+      nights: 10,
+      dives: 24,
+      price: {
+        single: 2280,
+        double: 4330,
+        nonDiver: 840,
+      },
+      includes: [
+        "Accommodation",
+        "Hotel Room",
+        "Breakfast",
+        "Hotel arrival & departure",
+        "For diving Pick-up and drop-off",
+        "8 Dive days (3 Dives per day)",
+        "8 Tiger Shark dives",
+        "16 Reef dives",
+        "Complimentary sunset cruise",
+      ],
+    },
+  ]
+
+  // Add-ons data
+  const addOns = [
+    {
+      category: "DOMESTIC FLIGHT TICKET MALE' / FUVAHMULAH",
+      items: [
+        { name: "One way", price: 149 },
+        { name: "Return", price: 298 },
+      ],
+    },
+    {
+      category: "SCHEDULED SPEED BOAT ADDU / FUVAHMULAH",
+      items: [
+        { name: "One way", price: 20 },
+        { name: "Return", price: 40 },
+      ],
+    },
+    {
+      category: "DIVE EQUIPMENT rental per day",
+      items: [
+        { name: "Full set", price: 15 },
+        { name: "Regulator", price: 5 },
+        { name: "BCD", price: 5 },
+        { name: "Wetsuit", price: 5 },
+        { name: "Computer", price: 5 },
+      ],
+    },
+    {
+      category: "LUNCH & DINNER",
+      items: [{ name: "Per meal", price: 15 }],
+    },
+  ]
+
   return (
     <div className="relative min-h-screen text-center overflow-hidden">
       {/* Header Section */}
       <Navbar />
 
-    {/* Background Image */}
-<div className="absolute inset-0 -z-10 bg-black w-full h-[720px]">
-  <div className="relative w-full h-full">
-    <Image
-      src="/shark_1.jpg"
-      alt="Underwater Background"
-      layout="fill" // Ensure the image fills the container
-      className="object-cover object-center opacity-50"
-      priority
-    />
-  </div>
-</div>
+      {/* Background Image */}
+      <div className="absolute inset-0 -z-10 bg-black w-full h-[720px]">
+        <div className="relative w-full h-full">
+          <Image
+            src="/shark_1.jpg"
+            alt="Underwater Background"
+            layout="fill" // Ensure the image fills the container
+            className="object-cover object-center opacity-50"
+            priority
+          />
+        </div>
+      </div>
 
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center px-4">
+      <section className="relative h-[80vh] flex items-center justify-center px-4">
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Our Diving Courses</h1>
-          <p className="text-xl md:text-2xl text-white mb-8">
+          <h1 className="nasa-font text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">
+            Our Diving Courses
+          </h1>
+          <p className="nasa-font text-xl md:text-2xl text-white mb-8 tracking-wide">
             From beginners to professionals, we offer a wide range of PADI certified courses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -491,8 +718,296 @@ export default function CoursesPage() {
 
       {/* Main Content */}
       <div className="bg-white">
-        {/* Course Price Table Section */}
+        {/* Dive Prices Section */}
         <section className="py-16 px-4">
+          <div className="max-w-screen-xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Dive Prices</h2>
+              <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
+              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                Transparent pricing for all our diving services, equipment rentals, and additional services.
+              </p>
+            </div>
+
+            {/* Price Tabs */}
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <button
+                onClick={() => setActivePriceTab("individual")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-colors ${
+                  activePriceTab === "individual"
+                    ? "bg-[#0b385b] text-white"
+                    : "bg-white text-[#0b385b] hover:bg-gray-200"
+                }`}
+              >
+                <FaFish className="h-5 w-5" />
+                Individual Dives
+              </button>
+              <button
+                onClick={() => setActivePriceTab("packages")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-colors ${
+                  activePriceTab === "packages"
+                    ? "bg-[#0b385b] text-white"
+                    : "bg-white text-[#0b385b] hover:bg-gray-200"
+                }`}
+              >
+                <FaHotel className="h-5 w-5" />
+                Dive Packages
+              </button>
+              <button
+                onClick={() => setActivePriceTab("addons")}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-colors ${
+                  activePriceTab === "addons" ? "bg-[#0b385b] text-white" : "bg-white text-[#0b385b] hover:bg-gray-200"
+                }`}
+              >
+                <FaPlus className="h-5 w-5" />
+                Add-ons
+              </button>
+            </div>
+
+            {/* Individual Dives Tab */}
+            <div className={`${activePriceTab === "individual" ? "block" : "hidden"}`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Tiger Shark Dive */}
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                  <div className="bg-[#0b385b] text-white p-4">
+                    <h3 className="text-xl font-bold">Tiger Shark Dive</h3>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-200">
+                      <span>Tiger Shark Dive (Close Proximity)</span>
+                      <span className="font-bold text-[#0b385b]">$80 per dive</span>
+                    </div>
+                    <p className="text-sm text-gray-600 italic">
+                      Note: This is a special dive and not counted among regular dive packages
+                    </p>
+                  </div>
+                </div>
+
+                {/* Reef Dives */}
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                  <div className="bg-[#0b385b] text-white p-4">
+                    <h3 className="text-xl font-bold">Reef Dives</h3>
+                  </div>
+                  <div className="p-6">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                        <span>1 Reef Dive</span>
+                        <span className="font-bold text-[#0b385b]">$70</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                        <span>2–6 Reef Dives</span>
+                        <span className="font-bold text-[#0b385b]">$65 per dive</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>20+ Reef Dives</span>
+                        <span className="font-bold text-[#0b385b]">$60 per dive</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                {/* DAN Dive Insurance */}
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                  <div className="bg-[#0b385b] text-white p-4">
+                    <h3 className="text-xl font-bold">DAN Dive Insurance</h3>
+                  </div>
+                  <div className="p-6">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                        <span>1 Day</span>
+                        <span className="font-bold text-[#0b385b]">$12</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                        <span>7 Days</span>
+                        <span className="font-bold text-[#0b385b]">$20</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>14 Days</span>
+                        <span className="font-bold text-[#0b385b]">$30</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Included in Dive */}
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                  <div className="bg-[#0b385b] text-white p-4">
+                    <h3 className="text-xl font-bold">Included in Dive</h3>
+                  </div>
+                  <div className="p-6">
+                    <ul className="space-y-2">
+                      <li className="flex items-start gap-2">
+                        <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
+                        <span>Mask, Fins & Weights</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
+                        <span>Towel & Drinking Water (on the boat)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
+                        <span>12L Aluminium Tank (Yoke/DIN Valves)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Transportation */}
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                  <div className="bg-[#0b385b] text-white p-4">
+                    <h3 className="text-xl font-bold">Pick-up & Drop-off</h3>
+                  </div>
+                  <div className="p-6">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                        <span>Hotel/Harbour Transfer</span>
+                        <span className="font-bold text-[#0b385b]">$8 per person per day</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>Motorbike Rental</span>
+                        <span className="font-bold text-[#0b385b]">$15 per day</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Equipment Rental */}
+              <div className="mt-8 bg-white rounded-xl shadow-lg overflow-hidden">
+                <div className="bg-[#0b385b] text-white p-4">
+                  <h3 className="text-xl font-bold">Dive Equipment Rental (Per Day)</h3>
+                </div>
+                <div className="p-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                      <span>Full Set (BCD, Wetsuit, Regulator, Dive Computer)</span>
+                      <span className="font-bold text-[#0b385b]">$15</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                      <span>BCD</span>
+                      <span className="font-bold text-[#0b385b]">$5</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                      <span>Wetsuit</span>
+                      <span className="font-bold text-[#0b385b]">$5</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                      <span>Regulator</span>
+                      <span className="font-bold text-[#0b385b]">$5</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                      <span>Dive Computer</span>
+                      <span className="font-bold text-[#0b385b]">$5</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                      <span>15L Tank Upgrade</span>
+                      <span className="font-bold text-[#0b385b]">$5</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Extras */}
+              <div className="mt-8 bg-white rounded-xl shadow-lg overflow-hidden">
+                <div className="bg-[#0b385b] text-white p-4">
+                  <h3 className="text-xl font-bold">Extras</h3>
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-between items-center">
+                    <span>GoPro Camera Rental</span>
+                    <span className="font-bold text-[#0b385b]">$25 per day</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Dive Packages Tab */}
+            <div className={`${activePriceTab === "packages" ? "block" : "hidden"}`}>
+              <div className="overflow-x-auto">
+                <table className="w-full bg-white rounded-xl shadow-lg overflow-hidden">
+                  <thead className="bg-[#0b385b] text-white">
+                    <tr>
+                      <th className="px-4 py-3 text-left">Package</th>
+                      <th className="px-4 py-3 text-left">Single Person</th>
+                      <th className="px-4 py-3 text-left">Two People</th>
+                      <th className="px-4 py-3 text-left">Non-Diver</th>
+                      <th className="px-4 py-3 text-left">What's Included</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {divePackages.map((pkg, index) => (
+                      <tr key={index} className={`border-b border-gray-200 ${pkg.popular ? "bg-blue-50" : ""}`}>
+                        <td className="px-4 py-4">
+                          <div className="font-bold text-[#0b385b]">
+                            {pkg.nights} Nights & {pkg.dives} Dives
+                            {pkg.popular && (
+                              <span className="ml-2 text-xs bg-[#0b385b] text-white px-2 py-1 rounded-full">
+                                MOST POPULAR
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-4 py-4">
+                          <div className="font-bold">${pkg.price.single}</div>
+                        </td>
+                        <td className="px-4 py-4">
+                          <div className="font-bold">${pkg.price.double}</div>
+                        </td>
+                        <td className="px-4 py-4">
+                          <div className="font-bold">${pkg.price.nonDiver}</div>
+                        </td>
+                        <td className="px-4 py-4">
+                          <ul className="text-sm">
+                            {pkg.includes.map((item, i) => (
+                              <li key={i} className="flex items-start gap-1 mb-1">
+                                <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0 text-xs" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Add-ons Tab */}
+            <div className={`${activePriceTab === "addons" ? "block" : "hidden"}`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {addOns.map((category, index) => (
+                  <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div className="bg-[#0b385b] text-white p-4">
+                      <h3 className="text-xl font-bold">{category.category}</h3>
+                    </div>
+                    <div className="p-6">
+                      <div className="space-y-4">
+                        {category.items.map((item, i) => (
+                          <div
+                            key={i}
+                            className={`flex justify-between items-center ${i < category.items.length - 1 ? "pb-2 border-b border-gray-200" : ""}`}
+                          >
+                            <span>{item.name}</span>
+                            <span className="font-bold text-[#0b385b]">
+                              ${item.price}
+                              {item.name.includes("per") ? "" : " per person"}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Course Price Table Section */}
+        <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">PADI Diving Courses</h2>
@@ -635,7 +1150,7 @@ export default function CoursesPage() {
         </section>
 
         {/* Main Courses Section */}
-        <section id="main-courses" className="py-16 px-4 bg-gray-50">
+        <section id="main-courses" className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Course Details</h2>
@@ -817,7 +1332,7 @@ export default function CoursesPage() {
         </section>
 
         {/* Specialty Courses Section */}
-        <section className="py-16 px-4">
+        <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Specialty Courses</h2>
@@ -864,7 +1379,7 @@ export default function CoursesPage() {
         </section>
 
         {/* Course Packages Section */}
-        <section className="py-16 px-4 bg-gray-50">
+        <section className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Course Packages</h2>
@@ -1011,7 +1526,7 @@ export default function CoursesPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 px-4">
+        <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Frequently Asked Questions</h2>

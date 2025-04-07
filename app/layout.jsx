@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${orbitron.variable} antialiased`}
+        className={`${geistSans.variable} ${geistSans.variable} antialiased`}
       >
         {children}
       </body>
