@@ -136,12 +136,12 @@ export default function ContactPage() {
     {
       icon: <FaPhone className="text-white" />,
       title: "Phone Numbers",
-      details: ["+960 123 4567", "+960 765 4321"],
+      details: ["+960 7930760", "+960 7930760"],
     },
     {
       icon: <FaEnvelope className="text-white" />,
       title: "Email Us",
-      details: ["sales@scubachannelfuvahmulah.com", "info@scubachannelfuvahmulah.com"],
+      details: ["sales@scubachannelfuvahmulah.com"],
     },
   ]
 
@@ -585,11 +585,11 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-sm text-white/80">Emergency Hotline</p>
-                      <p className="text-xl font-bold">+960 999 8888</p>
+                      <p className="text-xl font-bold">+960 7930760</p>
                     </div>
                   </div>
                   <Link
-                    href="tel:+9609998888"
+                    href="tel:+9607930760"
                     className="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-[#0b385b] font-bold py-3 px-6 rounded-full transition-colors"
                   >
                     Call Now <FaArrowRight />
