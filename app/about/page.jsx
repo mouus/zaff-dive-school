@@ -49,8 +49,11 @@ export default function AboutPage() {
     document.head.appendChild(link)
 
     return () => {
-      document.head.removeChild(style)
-      if (document.head.contains(link)) {
+      // Check if elements exist and are children of document.head before removing
+      if (style && style.parentNode === document.head) {
+        document.head.removeChild(style)
+      }
+      if (link && link.parentNode === document.head) {
         document.head.removeChild(link)
       }
     }
@@ -61,8 +64,8 @@ export default function AboutPage() {
       year: "2011",
       title: "First Dive Experience",
       description:
-        "Mr. Zafar had his first scuba diving experience in Fuvahmulah with scarce equipment and no dive centers.",
-      image: "/img-9.jpg",
+        "Mr. Zafar had his first scuba diving experience in Fuvahmulah with scarce equipment and no dive centers. The first Tiger shark dive was conducted with Hussain Saeed (Kao) and Livia.",
+      image: "/img-3.PNG",
     },
     {
       year: "2012",
@@ -82,7 +85,7 @@ export default function AboutPage() {
       year: "2014-2015",
       title: "Growth Period",
       description:
-        "Local entrepreneurs started investing in the diving industry, opening new dive centers and guest houses.",
+        "Local entrepreneurs started investing in the diving industry, opening new dive centers and guest houses. Zaff led dive groups in 2014, expanding the popularity of the destination.",
       image: "/img-10.JPG",
     },
     {
@@ -96,7 +99,7 @@ export default function AboutPage() {
 
   const journeyGallery = [
     {
-      image: "/img.jpg",
+      image: "/img-3.PNG",
       caption: "Early days of diving in Fuvahmulah",
       year: "2011",
     },
@@ -111,7 +114,7 @@ export default function AboutPage() {
       year: "2013",
     },
     {
-      image: "/img-3.PNG",
+      image: "/img.jpg",
       caption: "Opening our first dive center",
       year: "2014",
     },
@@ -126,7 +129,7 @@ export default function AboutPage() {
       year: "2016",
     },
     {
-      image: "/img-7.JPG",
+      image: "/img-9.JPG",
       caption: "Our shark conservation initiatives",
       year: "2018",
     },
@@ -194,6 +197,10 @@ export default function AboutPage() {
                   Mr. Abdulla Zafar Ali pioneered the discovery of the first Tiger shark in Fuvahmulah. He is currently
                   working as an instructor in Fuvahmulah. Apart from being a dive instructor, he is one of the few
                   divers who are continually concerned about the advancement of this field in Fuvahmulah.
+                </p>
+                <p className="text-lg text-gray-700 mb-6">
+                  Mr. Hassan Shah, (Nooraleege, Funnadu, Fuvahmulah) was the first person who conducted Discover Scuba
+                  Diving (DSD) at Fuvahmulah, playing a crucial role in establishing diving activities on the island.
                 </p>
                 <div className="flex gap-4 mb-6">
                   <div className="w-1/3 bg-[#0b385b] h-1"></div>
@@ -428,9 +435,9 @@ export default function AboutPage() {
                   dive destination, achieving celebrity status.
                 </p>
                 <p className="text-lg text-gray-700 mb-6">
-                  From the beginning until today, Mr. Zafar has followed his passion as a scuba diving legend. I salute
-                  you all for trying to make this place shine for scuba diving. This place is Shark Island, located in
-                  the middle of the southern hemisphere below zero degrees.
+                  From the beginning until today, Mr. Zafar has followed his passion as a scuba diving legend. We salute
+                  all the pioneers for making this place shine for scuba diving. This place is truly Shark Island,
+                  located in the middle of the southern hemisphere below zero degrees.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
@@ -535,4 +542,3 @@ export default function AboutPage() {
     </div>
   )
 }
-

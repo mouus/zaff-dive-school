@@ -131,12 +131,12 @@ export default function ContactPage() {
     {
       icon: <FaMapMarkerAlt className="text-white" />,
       title: "Our Location",
-      details: ["Scubachannel Fuvahmulah", "Fuvahmulah Island", "Maldives"],
+      details: ["Zindha, husnuheenamagu, funaadu", "Fuvahmulah Island", "Maldives"],
     },
     {
       icon: <FaPhone className="text-white" />,
       title: "Phone Numbers",
-      details: ["+960 7930760", "+960 7930760"],
+      details: ["+960 7795512", "+960 7930760"],
     },
     {
       icon: <FaEnvelope className="text-white" />,
@@ -434,82 +434,16 @@ export default function ContactPage() {
               </div>
 
               {/* Map and Business Hours */}
-              <div className="space-y-8">
+              <div>
                 {/* Map */}
                 <div className="bg-white p-4 rounded-xl shadow-lg">
                   <div className="aspect-video relative rounded-md overflow-hidden">
                     <Image
-                      src="/island.jpg"
+                      src="/shark-map.jpg"
                       alt="Map of Fuvahmulah"
                       fill
-                      className="object-cover transition-transform duration-300 transform hover:scale-105"
+                      className="object-fill w-full transition-transform duration-300 transform hover:scale-105"
                     />
-                    {/* <div className="absolute inset-0 flex items-center justify-center">
-                      <p className="text-gray-500">Interactive map would be displayed here</p>
-                    </div> */}
-                  </div>
-                </div>
-
-                {/* Business Hours */}
-                <div className="bg-white p-8 rounded-xl shadow-lg">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-[#0b385b] text-white p-3 rounded-full">
-                      <FaCalendarAlt className="h-5 w-5" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-[#0b385b]">Business Hours</h3>
-                  </div>
-
-                  <ul className="space-y-4">
-                    {businessHours.map((item, index) => (
-                      <li
-                        key={index}
-                        className="flex justify-between items-center pb-3 border-b border-gray-100 last:border-b-0"
-                      >
-                        <span className="font-medium text-gray-800">{item.day}</span>
-                        <span className="text-gray-700">{item.hours}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Social Media */}
-                <div className="bg-white p-8 rounded-xl shadow-lg">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-[#0b385b] text-white p-3 rounded-full">
-                      <FaInstagram className="h-5 w-5" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-[#0b385b]">Connect With Us</h3>
-                  </div>
-
-                  <p className="text-gray-700 mb-6">
-                    Follow us on social media for the latest updates, underwater photos, and special offers.
-                  </p>
-
-                  <div className="flex flex-wrap gap-4 justify-center">
-                    <Link
-                      href="#"
-                      className="bg-[#0b385b] w-12 h-12 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
-                    >
-                      <FaFacebookF size={20} />
-                    </Link>
-                    <Link
-                      href="#"
-                      className="bg-[#0b385b] w-12 h-12 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
-                    >
-                      <FaInstagram size={20} />
-                    </Link>
-                    <Link
-                      href="#"
-                      className="bg-[#0b385b] w-12 h-12 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
-                    >
-                      <FaTwitter size={20} />
-                    </Link>
-                    <Link
-                      href="#"
-                      className="bg-[#0b385b] w-12 h-12 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
-                    >
-                      <FaYoutube size={20} />
-                    </Link>
                   </div>
                 </div>
               </div>
@@ -545,9 +479,8 @@ export default function ContactPage() {
                       )}
                     </button>
                     <div
-                      className={`px-6 overflow-hidden transition-all duration-300 ${
-                        openFaqs[faq.id] ? "max-h-96 pb-4" : "max-h-0"
-                      }`}
+                      className={`px-6 overflow-hidden transition-all duration-300 ${openFaqs[faq.id] ? "max-h-96 pb-4" : "max-h-0"
+                        }`}
                     >
                       <p className="text-gray-700">{faq.answer}</p>
                     </div>

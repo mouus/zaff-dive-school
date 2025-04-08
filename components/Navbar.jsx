@@ -73,8 +73,11 @@ function Navbar() {
     document.head.appendChild(link)
 
     return () => {
-      document.head.removeChild(style)
-      if (document.head.contains(link)) {
+      // Check if elements exist and are children of document.head before removing
+      if (style && style.parentNode === document.head) {
+        document.head.removeChild(style)
+      }
+      if (link && link.parentNode === document.head) {
         document.head.removeChild(link)
       }
     }
@@ -228,4 +231,3 @@ function Navbar() {
 }
 
 export default Navbar
-

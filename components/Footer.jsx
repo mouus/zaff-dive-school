@@ -98,11 +98,11 @@ function Footer() {
           <ul className="space-y-4">
             <li className="flex items-start gap-3">
               <FaMapMarkerAlt className="text-white mt-1 flex-shrink-0" />
-              <span className="text-gray-300">Fuvahmulah Island, Maldives</span>
+              <span className="text-gray-300">Zindha, husnuheenamagu, funaadu, Fuvahmulah Island, Maldives</span>
             </li>
             <li className="flex items-start gap-3">
               <FaPhone className="text-white mt-1 flex-shrink-0" />
-              <span className="text-gray-300">+960 123 4567</span>
+              <span className="text-gray-300">+960 7795512</span>
             </li>
             <li className="flex items-start gap-3">
               <FaEnvelope className="text-white mt-1 flex-shrink-0" />
