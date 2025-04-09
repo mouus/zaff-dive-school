@@ -391,14 +391,14 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-
+{/* 
             <div className="text-center mt-8">
               <Link
                 href="#"
                 className="inline-flex items-center gap-2 bg-transparent hover:bg-[#0b385b] text-[#0b385b] hover:text-white border-2 border-[#0b385b] font-bold py-3 px-6 rounded-full transition-colors"
               >
                 View Full Gallery <FaArrowRight />
-              </Link>
+              </Link> */}
             </div>
           </div>
         </section>
