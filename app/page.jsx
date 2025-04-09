@@ -13,7 +13,6 @@ import {
   FaTwitter,
   FaYoutube,
   FaMapMarkerAlt,
-  FaPhone,
   FaEnvelope,
   FaCalendarAlt,
   FaUsers,
@@ -94,6 +93,7 @@ export default function HomePage() {
     }
   }, [])
 
+  // Update the divingCourses object with correct pricing from courses page
   const divingCourses = {
     beginners: {
       title: "For Beginners",
@@ -133,7 +133,7 @@ export default function HomePage() {
       duration: "2-5 days",
       price: "$150-$600",
       features: [
-        "Advanced Open Water Dive ($421)",
+        "Advanced Open Water Dive (2+ days, $421)",
         "Rescue Diver (5 days, $600)",
         "Specialty Dives ($190 per dive)",
         "Emergency First Response (2 days, $150)",
@@ -176,7 +176,7 @@ export default function HomePage() {
     },
   ]
 
-  const galleryImages = ["/ray.jpg", "/fishes.JPG", "/loneshark.JPG", "/sharktop.JPG", "/fishes2.JPG", "/img1.jpg"]
+  const galleryImages = ["/ray.jpg", "/people.JPG", "/loneshark.JPG", "/sharktop.JPG", "/shark.JPG", "/img1.jpg"]
 
   return (
     <div className="relative min-h-screen text-center overflow-hidden">
@@ -472,32 +472,23 @@ export default function HomePage() {
 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-start gap-4">
-                    <div className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
+                    {/* <div className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
                       <FaMapMarkerAlt className="text-white" />
-                    </div>
+                    </div> */}
                     <div className="flex gap-2">
                       <h4 className="font-bold text-[#0b385b]">Location:</h4>
                       <p className="text-gray-700">Fuvahmulah Island, Maldives</p>
                     </div>
                   </div>
 
+                  {/* Fix the email display in the contact section */}
                   <div className="flex items-start gap-4">
-                    <div className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <FaPhone className="text-white" />
-                    </div>
-                    <div className="flex gap-2">
-                      <h4 className="font-bold text-[#0b385b]">Phone:</h4>
-                      <p className="text-gray-700">+960 123 4567</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
+                    {/* <div className="bg-[rgb(11,56,91)] w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
                       <FaEnvelope className="text-white" />
-                    </div>
-                    <div className="flex gap-2">
+                    </div> */}
+                    <div className="flex gap-1 sm:flex-row sm:gap-2">
                       <h4 className="font-bold text-[#0b385b]">Email:</h4>
-                      <p className="text-gray-700">sales@scubachannelfuvahmulah.com</p>
+                      <p className="text-gray-700 break-all">sales@scubachannelfuvahmulah.com</p>
                     </div>
                   </div>
                 </div>
@@ -505,29 +496,29 @@ export default function HomePage() {
                 <h3 className="text-xl font-bold text-[#0b385b] mb-4">Follow Us</h3>
                 <div className="flex gap-4">
                   <Link
-                    href="#"
+                    href="https://www.facebook.com/share/18u7oE113F/?mibextid=wwXIfr"
                     className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
                   >
                     <FaFacebookF />
                   </Link>
                   <Link
-                    href="#"
+                    href="https://www.instagram.com/scubachannelfvm?igsh=MW5vZDJ4ZDZpMGdicg%3D%3D&utm_source=qr"
                     className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
                   >
                     <FaInstagram />
                   </Link>
                   <Link
-                    href="#"
+                    href="https://x.com/scubachannelfvm?s=21&t=lH-WtqFiIOVaHTDYXc8iUg"
                     className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
                   >
                     <FaTwitter />
                   </Link>
-                  <Link
+                  {/* <Link
                     href="#"
                     className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
                   >
                     <FaYoutube />
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
 
@@ -598,4 +589,3 @@ export default function HomePage() {
     </div>
   )
 }
-

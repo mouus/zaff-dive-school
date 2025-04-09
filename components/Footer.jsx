@@ -36,18 +36,18 @@ function Footer() {
             Your premier diving center in Fuvahmulah, Maldives, offering unforgettable underwater experiences and professional PADI courses.
           </p>
           <div className="flex gap-4">
-            <Link href="#" className="text-white hover:text-gray-300 transition-colors">
+            <Link href="https://www.facebook.com/share/18u7oE113F/?mibextid=wwXIfr" className="text-white hover:text-gray-300 transition-colors">
               <FaFacebookF />
             </Link>
-            <Link href="#" className="text-white hover:text-gray-300 transition-colors">
+            <Link href="https://www.instagram.com/scubachannelfvm?igsh=MW5vZDJ4ZDZpMGdicg%3D%3D&utm_source=qr" className="text-white hover:text-gray-300 transition-colors">
               <FaInstagram />
             </Link>
-            <Link href="#" className="text-white hover:text-gray-300 transition-colors">
+            <Link href="https://x.com/scubachannelfvm?s=21&t=lH-WtqFiIOVaHTDYXc8iUg" className="text-white hover:text-gray-300 transition-colors">
               <FaTwitter />
             </Link>
-            <Link href="#" className="text-white hover:text-gray-300 transition-colors">
+            {/* <Link href="#" className="text-white hover:text-gray-300 transition-colors">
               <FaYoutube />
-            </Link>
+            </Link> */}
           </div>
         </div>
         
@@ -63,9 +63,9 @@ function Footer() {
             <li>
               <Link href="/courses" className="text-gray-300 hover:text-white transition-colors">Courses</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="#" className="text-gray-300 hover:text-white transition-colors">Gallery</Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
             </li>
