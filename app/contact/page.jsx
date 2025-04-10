@@ -3,28 +3,22 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import {
-  FaMapMarkerAlt,
-  FaPhone,
-  FaEnvelope,
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-  FaArrowRight,
-  FaChevronDown,
-  FaChevronUp,
-  FaCalendarAlt,
-} from "react-icons/fa"
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaArrowRight, FaChevronDown, FaChevronUp } from "react-icons/fa"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
 // NASA font style
 const nasaFontStyle = `
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+  @font-face {
+    font-family: 'NASA';
+    src: url('/font/Nasa.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
   
-  .nasa-font {
-    font-family: 'Orbitron', sans-serif !important;
+  .font-nasa {
+    font-family: 'NASA', sans-serif !important;
     letter-spacing: 1px !important;
     text-transform: uppercase !important;
   }
@@ -49,12 +43,6 @@ export default function ContactPage() {
   useEffect(() => {
     setIsVisible(true)
 
-    // Add Google Fonts link first to ensure font is loaded
-    const link = document.createElement("link")
-    link.rel = "stylesheet"
-    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
-    document.head.appendChild(link)
-
     // Inject NASA font style
     const style = document.createElement("style")
     style.innerHTML = nasaFontStyle
@@ -64,23 +52,11 @@ export default function ContactPage() {
       // Find and remove the style element
       const styleElements = document.querySelectorAll("style")
       styleElements.forEach((el) => {
-        if (el.innerHTML.includes(".nasa-font") && document.head.contains(el)) {
+        if (el.innerHTML.includes(".font-nasa") && document.head.contains(el)) {
           try {
             document.head.removeChild(el)
           } catch (error) {
             console.log("Style element already removed")
-          }
-        }
-      })
-
-      // Find and remove the link element
-      const linkElements = document.querySelectorAll("link")
-      linkElements.forEach((el) => {
-        if (el.href.includes("Orbitron") && document.head.contains(el)) {
-          try {
-            document.head.removeChild(el)
-          } catch (error) {
-            console.log("Link element already removed")
           }
         }
       })
@@ -136,7 +112,7 @@ export default function ContactPage() {
     {
       icon: <FaPhone className="text-white" />,
       title: "Phone Numbers",
-      details: [ "+960 7930760"],
+      details: ["+960 7930760"],
     },
     {
       icon: <FaEnvelope className="text-white" />,
@@ -186,7 +162,7 @@ export default function ContactPage() {
       {/* Background Image */}
       <div className="absolute inset-0 -z-10 bg-black">
         <div className="relative w-full h-[568px] md:h-screen">
-          <Image src="/shark-hue.JPG" alt="Underwater Background" fill className="object-cover opacity-50" />
+          <Image src="/shark-hue.jpg" alt="Underwater Background" fill className="object-cover opacity-50" />
         </div>
       </div>
 
@@ -195,7 +171,7 @@ export default function ContactPage() {
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Contact Us</h1>
+          <h1 className="font-nasa text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Contact Us</h1>
           <p className="text-xl md:text-2xl text-white mb-8 tracking-wide">
             Have questions about our diving courses or want to book your next underwater adventure? Get in touch with
             our team today.
@@ -246,7 +222,7 @@ export default function ContactPage() {
         <section id="contact-form" className="py-16 px-4 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Get In Touch</h2>
+              <h2 className="font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Get In Touch</h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Fill out the form below and our team will get back to you as soon as possible to help with your inquiry.
@@ -455,7 +431,9 @@ export default function ContactPage() {
         <section className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Frequently Asked Questions</h2>
+              <h2 className="font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">
+                Frequently Asked Questions
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Find answers to common questions about contacting us and booking our services.
@@ -479,8 +457,9 @@ export default function ContactPage() {
                       )}
                     </button>
                     <div
-                      className={`px-6 overflow-hidden transition-all duration-300 ${openFaqs[faq.id] ? "max-h-96 pb-4" : "max-h-0"
-                        }`}
+                      className={`px-6 overflow-hidden transition-all duration-300 ${
+                        openFaqs[faq.id] ? "max-h-96 pb-4" : "max-h-0"
+                      }`}
                     >
                       <p className="text-gray-700">{faq.answer}</p>
                     </div>
@@ -507,7 +486,7 @@ export default function ContactPage() {
             <div className="bg-[#0b385b] rounded-xl shadow-lg overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2 items-center">
                 <div className="p-8 md:p-12 text-white">
-                  <h2 className="text-3xl font-bold mb-4">Need Urgent Assistance?</h2>
+                  <h2 className="font-nasa text-3xl font-bold mb-4">Need Urgent Assistance?</h2>
                   <p className="text-white/90 mb-6">
                     For emergency bookings or urgent inquiries, please contact our emergency hotline. We're available
                     24/7 to assist you.
@@ -528,14 +507,6 @@ export default function ContactPage() {
                     Call Now <FaArrowRight />
                   </Link>
                 </div>
-                {/* <div className="relative h-64 md:h-full">
-                  <Image
-                    src="/placeholder.svg?height=400&width=600"
-                    alt="Emergency Contact"
-                    fill
-                    className="object-cover"
-                  />
-                </div> */}
               </div>
             </div>
           </div>
@@ -544,7 +515,7 @@ export default function ContactPage() {
         {/* CTA Section */}
         <section className="py-16 px-4 bg-[#0b385b] text-white">
           <div className="max-w-screen-xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Diving Adventure?</h2>
+            <h2 className="font-nasa text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Diving Adventure?</h2>
             <p className="text-xl mb-8 max-w-3xl mx-auto">
               Book your diving course today and discover the underwater wonders of Fuvahmulah with our expert
               instructors.
@@ -570,10 +541,10 @@ export default function ContactPage() {
         <section className="py-12 px-4 bg-white">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-[#0b385b]">Our Partners</h2>
+              <h2 className="font-nasa text-2xl font-bold text-[#0b385b]">Our Partners</h2>
             </div>
             <div className="flex flex-wrap justify-center items-center gap-8">
-              {["/dan.png", "/padi.png", "/subapro.png","/mares.jpg"].map((src, index) => (
+              {["/dan.png", "/padi.png", "/subapro.png", "/mares.jpg"].map((src, index) => (
                 <div key={index} className="flex">
                   <Image
                     src={src || "/placeholder.svg"}
@@ -594,4 +565,3 @@ export default function ContactPage() {
     </div>
   )
 }
-

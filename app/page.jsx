@@ -11,15 +11,19 @@ import {
   FaArrowRight,
   FaFacebookF,
   FaTwitter,
-  FaYoutube,
-  FaMapMarkerAlt,
-  FaEnvelope,
   FaCalendarAlt,
   FaUsers,
   FaStar,
 } from "react-icons/fa"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import localFont from "next/font/local"
+
+// Import NASA font
+const nasaFont = localFont({
+  src: "../public/font/Nasa.ttf",
+  variable: "--font-nasa",
+})
 
 // Add orbital animations
 const orbitalAnimations = `
@@ -56,101 +60,101 @@ const orbitalAnimations = `
   }
 `
 
-// NASA font style
-const nasaFontStyle = `
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
-  
-  .nasa-font {
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-`
-
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState("beginners")
+  const [activeTab, setActiveTab] = useState("openwater")
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     setIsVisible(true)
 
-    // Inject orbital animations and NASA font
+    // Inject orbital animations
     const style = document.createElement("style")
-    style.innerHTML = orbitalAnimations + nasaFontStyle
+    style.innerHTML = orbitalAnimations
     document.head.appendChild(style)
 
-    // Add Google Fonts link
-    const link = document.createElement("link")
-    link.rel = "stylesheet"
-    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
-    document.head.appendChild(link)
-
     return () => {
-      document.head.removeChild(style)
-      if (document.head.contains(link)) {
-        document.head.removeChild(link)
+      if (document.head.contains(style)) {
+        document.head.removeChild(style)
       }
     }
   }, [])
 
-  // Update the divingCourses object with correct pricing from courses page
+  // Updated diving courses based on client's information
   const divingCourses = {
-    beginners: {
-      title: "For Beginners",
+    openwater: {
+      title: "Open Water",
       description:
-        "Perfect introductory experiences for those who want to try diving for the first time without committing to a full certification course.",
+        "The world's most popular diving course that qualifies you to dive independently with a buddy to 18 meters/60 feet.",
       image: "/img-10.JPG",
       icon: <FaWater className="h-6 w-6 text-white" />,
-      duration: "45-60 minutes",
-      price: "$50-$80",
+      duration: "3-4 days",
+      price: "$550",
       features: [
-        "PADI Bubble Maker (45 min, $50)",
-        "PADI Discover Scuba Diving (60 min, $80)",
-        "No certification required",
-        "All equipment provided",
+        "All learning materials included",
+        "5 confined water dives",
+        "4 open water dives",
+        "PADI certification upon completion",
+        "Equipment rental included",
       ],
     },
-    certification: {
-      title: "PADI Beginners Courses",
-      description:
-        "Full certification courses for beginners that include all materials needed to become a certified diver.",
+    advanced: {
+      title: "Advanced Open Water",
+      description: "Expand your diving knowledge with 5 adventure dives, including deep and navigation dives.",
       image: "/manta2.jpg",
       icon: <FaAnchor className="h-6 w-6 text-white" />,
-      duration: "2-4 days",
-      price: "$300-$550",
+      duration: "2+ days",
+      price: "$421",
       features: [
-        "PADI Scuba Diver (2-3 days, $300)",
-        "PADI Open Water Diver (3-4 days, $550)",
-        "Internationally recognized certification",
-        "Complete equipment provided",
+        "Learning materials included",
+        "5 adventure dives",
+        "Deep diving techniques",
+        "Underwater navigation",
+        "PADI certification upon completion",
       ],
     },
-    continuing: {
-      title: "PADI Continuing Education",
-      description: "Advanced courses for certified divers looking to expand their skills and experience.",
+    efr: {
+      title: "EFR & Rescue",
+      description: "Learn essential first aid, CPR skills, and how to prevent and manage diving emergencies.",
       image: "/whale.jpg",
       icon: <FaLifeRing className="h-6 w-6 text-white" />,
-      duration: "2-5 days",
-      price: "$150-$600",
+      duration: "5-7 days",
+      price: "$600-$750",
       features: [
-        "Advanced Open Water Dive (2+ days, $421)",
-        "Rescue Diver (5 days, $600)",
-        "Specialty Dives ($190 per dive)",
-        "Emergency First Response (2 days, $150)",
+        "Emergency First Response (EFR) training",
+        "Rescue Diver course",
+        "Self-rescue techniques",
+        "Recognizing and managing dive emergencies",
+        "PADI certification upon completion",
       ],
     },
     divemaster: {
-      title: "Divemaster Course",
+      title: "Divemaster",
       description: "Professional-level training to lead certified divers and assist instructors.",
       image: "/people.jpg",
       icon: <FaUsers className="h-6 w-6 text-white" />,
-      duration: "2-11 weeks",
+      duration: "2-4 weeks",
       price: "$1000+",
       features: [
-        "PADI Divemaster Course (2-4 weeks, $1000)",
-        "PADI Divemaster Internship (3-11 weeks)",
-        "Professional certification",
+        "Professional-level certification",
+        "Dive leadership training",
+        "Supervising diving activities",
+        "Assisting with student training",
         "Career opportunities in diving",
+      ],
+    },
+    specialty: {
+      title: "Specialty Courses",
+      description: "Focus on specific diving activities or environments to enhance your skills in that area.",
+      image: "/shark-4.JPG",
+      icon: <FaWater className="h-6 w-6 text-white" />,
+      duration: "1-2 days per specialty",
+      price: "$190 per specialty",
+      features: [
+        "Tiger Shark Specialty",
+        "Deep Diver Specialty",
+        "Night Diver Specialty",
+        "Underwater Photography",
+        "And many more options",
       ],
     },
   }
@@ -176,7 +180,7 @@ export default function HomePage() {
     },
   ]
 
-  const galleryImages = ["/ray.jpg", "/people.JPG", "/loneshark.JPG", "/sharktop.JPG", "/shark.JPG", "/img1.jpg"]
+  const galleryImages = ["/fvm-3.JPG", "/people.jpg", "/loneshark.JPG", "/shark-4.JPG", "/shark.jpg", "/img1.jpg"]
 
   return (
     <div className="relative min-h-screen text-center overflow-hidden">
@@ -195,10 +199,12 @@ export default function HomePage() {
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"} relative z-10`}
         >
-          <h1 className=" text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">
+          <h1
+            className={`${nasaFont.className} text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider uppercase`}
+          >
             Discover the Underwater Paradise of Fuvahmulah
           </h1>
-          <p className=" text-xl md:text-2xl text-white mb-8 tracking-wide">
+          <p className="text-xl md:text-2xl text-white mb-8 tracking-wide">
             Experience world-class diving with tiger sharks and vibrant marine life in the pristine waters of the
             Maldives
           </p>
@@ -229,7 +235,9 @@ export default function HomePage() {
         <section className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Welcome to Scubachannel Fuvahmulah</h2>
+              <h2 className={`${nasaFont.className} text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                Welcome to Scubachannel Fuvahmulah
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Located in the pristine waters of Fuvahmulah, Maldives, we offer world-class diving experiences and
@@ -272,10 +280,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        {/* Right Side - Partner Logos (Top Right) */}
+        {/* Partner Logos */}
         <div className="flex justify-center items-center gap-8">
-          {["/dan.png", "/padi.png", "/subapro.png","/mares.jpg"].map((src, index) => (
-            <div key={index} className=" flex">
+          {["/dan.png", "/padi.png", "/subapro.png", "/mares.jpg"].map((src, index) => (
+            <div key={index} className="flex">
               <Image
                 src={src || "/placeholder.svg"}
                 alt={`Partner Logo ${index + 1}`}
@@ -291,7 +299,9 @@ export default function HomePage() {
         <section className="py-16 px-4 bg-gray-100">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Our Diving Courses</h2>
+              <h2 className={`${nasaFont.className} text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                Our PADI Diving Courses
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Whether you're a beginner or an experienced diver, we have courses tailored to enhance your skills and
@@ -368,7 +378,9 @@ export default function HomePage() {
         <section className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Dive Site Gallery</h2>
+              <h2 className={`${nasaFont.className} text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                Dive Site Gallery
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Explore the breathtaking underwater world of Fuvahmulah through our gallery of dive sites and marine
@@ -386,20 +398,125 @@ export default function HomePage() {
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <p className="text-white font-medium">Fuvahmulah Dives {index + 1}</p>
+                    <p className="text-white font-medium">{index === 0 ? "Fuvahmulah" : `Fuvahmulah Dive ${index}`}</p>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
 
-            {/* <div className="text-center mt-8">
-              <Link
-                href="#"
-                className="inline-flex items-center gap-2 bg-transparent hover:bg-[#0b385b] text-[#0b385b] hover:text-white border-2 border-[#0b385b] font-bold py-3 px-6 rounded-full transition-colors"
-              >
-                View Full Gallery <FaArrowRight />
-              </Link>
-            </div> */}
+        {/* Diving Policies Section */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-screen-xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase">
+                Diving Policies & Information
+              </h2>
+              <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
+              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                Important information about our diving requirements, reservation and cancellation policies.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* SCUBA DIVING POLICY */}
+              <div className="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 className="text-2xl font-bold text-[#0b385b] mb-6 text-left">SCUBA DIVING</h3>
+                <ul className="space-y-3 text-left">
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>Certification must be presented to be accepted as a diver</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>
+                      An orientation dive is mandatory for all certified divers (exceptions: dive professionals and
+                      divers with 100+ logged dives)
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>Valid dive insurance is mandatory for all divers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>Maximum Depth Limit is 30 meters</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>Maximum Dive Time is 45 minutes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>24 hour surface interval is required prior to flying</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>Daily Dive sites will be chosen based on weather conditions and diver experience</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>All Dive activities are subject to weather conditions and minimum number of guests</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* RESERVATION POLICY */}
+              <div className="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 className="text-2xl font-bold text-[#0b385b] mb-6 text-left">RESERVATION POLICY</h3>
+                <ul className="space-y-3 text-left">
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>All scheduled adventures are subject to weather conditions and minimum of 6-8 guests</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>12 hours advance reservation is required for all excursions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>All excursions and scuba diving reservations are subject to availability</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>Duration of excursions is measured from departure to return to the island</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>It's recommended to be at the Harbor 15 minutes prior to the start time</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>All prices are in US dollars and inclusive of 10% Service charge + 16% GST</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* CANCELLATION POLICY */}
+              <div className="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 className="text-2xl font-bold text-[#0b385b] mb-6 text-left">CANCELLATION POLICY</h3>
+                <ul className="space-y-3 text-left">
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>
+                      Cancellation fee of 50% will be charged for cancellations made less than 4 hours prior to the trip
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                    <span>No-shows will be charged a 50% cancellation fee</span>
+                  </li>
+                </ul>
+                <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <h4 className="font-bold text-[#0b385b] mb-2">Safety First</h4>
+                  <p className="text-gray-700">
+                    Your safety is our top priority. All diving activities are conducted with strict adherence to
+                    international safety standards and protocols.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -407,7 +524,9 @@ export default function HomePage() {
         <section className="py-16 px-4 bg-gray-100">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">What Our Divers Say</h2>
+              <h2 className={`${nasaFont.className} text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                What Our Divers Say
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Read testimonials from divers who have experienced the underwater wonders of Fuvahmulah with us.
@@ -436,15 +555,14 @@ export default function HomePage() {
         {/* CTA Section */}
         <section className="py-16 px-4 bg-[#0b385b] text-white">
           <div className="max-w-screen-xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready for an Unforgettable Diving Adventure?</h2>
+            <h2 className={`${nasaFont.className} text-3xl md:text-4xl font-bold mb-6 uppercase`}>
+              Ready for an Unforgettable Diving Adventure?
+            </h2>
             <p className="text-xl mb-8 max-w-3xl mx-auto">
               Book your diving experience today and discover the underwater wonders of Fuvahmulah with our expert
               guides.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {/* <Link href="/contact" className="bg-white hover:bg-gray-100 text-[#0b385b] font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2">
-                Book Now <FaArrowRight />
-              </Link> */}
               <Link
                 href="/courses"
                 className="bg-transparent hover:bg-white/20 text-white border-2 border-white font-bold py-3 px-8 rounded-full transition-colors"
@@ -459,7 +577,9 @@ export default function HomePage() {
         <section className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Contact Us</h2>
+              <h2 className={`${nasaFont.className} text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                Contact Us
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Have questions or ready to book your diving adventure? Get in touch with our team.
@@ -472,20 +592,13 @@ export default function HomePage() {
 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-start gap-4">
-                    {/* <div className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <FaMapMarkerAlt className="text-white" />
-                    </div> */}
                     <div className="flex gap-2">
                       <h4 className="font-bold text-[#0b385b]">Location:</h4>
                       <p className="text-gray-700">Fuvahmulah Island, Maldives</p>
                     </div>
                   </div>
 
-                  {/* Fix the email display in the contact section */}
                   <div className="flex items-start gap-4">
-                    {/* <div className="bg-[rgb(11,56,91)] w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <FaEnvelope className="text-white" />
-                    </div> */}
                     <div className="flex gap-1 sm:flex-row sm:gap-2">
                       <h4 className="font-bold text-[#0b385b]">Email:</h4>
                       <p className="text-gray-700 break-all">sales@scubachannelfuvahmulah.com</p>
@@ -497,28 +610,28 @@ export default function HomePage() {
                 <div className="flex gap-4">
                   <Link
                     href="https://www.facebook.com/share/18u7oE113F/?mibextid=wwXIfr"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
                   >
                     <FaFacebookF />
                   </Link>
                   <Link
                     href="https://www.instagram.com/scubachannelfvm?igsh=MW5vZDJ4ZDZpMGdicg%3D%3D&utm_source=qr"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
                   >
                     <FaInstagram />
                   </Link>
                   <Link
                     href="https://x.com/scubachannelfvm?s=21&t=lH-WtqFiIOVaHTDYXc8iUg"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
                   >
                     <FaTwitter />
                   </Link>
-                  {/* <Link
-                    href="#"
-                    className="bg-[#0b385b] w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-[#0a2e4a] transition-colors"
-                  >
-                    <FaYoutube />
-                  </Link> */}
                 </div>
               </div>
 

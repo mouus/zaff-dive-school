@@ -20,12 +20,18 @@ import Footer from "@/components/Footer"
 
 // NASA font style
 const nasaFontStyle = `
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+  @font-face {
+    font-family: 'NASA';
+    src: url('/font/Nasa.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
   
-  .nasa-font {
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+  .font-nasa {
+    font-family: 'NASA', sans-serif !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
   }
 `
 
@@ -42,20 +48,18 @@ export default function AboutPage() {
     style.innerHTML = nasaFontStyle
     document.head.appendChild(style)
 
-    // Add Google Fonts link
-    const link = document.createElement("link")
-    link.rel = "stylesheet"
-    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
-    document.head.appendChild(link)
-
     return () => {
-      // Check if elements exist and are children of document.head before removing
-      if (style && style.parentNode === document.head) {
-        document.head.removeChild(style)
-      }
-      if (link && link.parentNode === document.head) {
-        document.head.removeChild(link)
-      }
+      // Find and remove the style element
+      const styleElements = document.querySelectorAll("style")
+      styleElements.forEach((el) => {
+        if (el.innerHTML.includes(".font-nasa") && document.head.contains(el)) {
+          try {
+            document.head.removeChild(el)
+          } catch (error) {
+            console.log("Style element already removed")
+          }
+        }
+      })
     }
   }, [])
 
@@ -113,7 +117,7 @@ export default function AboutPage() {
       caption: "First Tiger shark encounters",
       year: "2013",
     },
-  
+
     {
       image: "/img-5.JPG",
       caption: "Growing our team of instructors",
@@ -139,7 +143,6 @@ export default function AboutPage() {
       caption: "Our operations today",
       year: "Present",
     },
-    
   ]
 
   const nextImage = () => {
@@ -177,8 +180,8 @@ export default function AboutPage() {
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Our Story</h1>
-          <p className="text-xl md:text-2xl text-white mb-8 tracking-wide">
+          <h1 className="font-nasa text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Our Story</h1>
+          <p className=" text-xl md:text-2xl text-white mb-8 tracking-wide">
             Discover how Fuvahmulah became the world's premier Tiger shark diving destination
           </p>
         </div>
@@ -244,7 +247,7 @@ export default function AboutPage() {
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Our Visual Journey</h2>
+              <h2 className="font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Our Visual Journey</h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Explore the photographic history of our diving journey in Fuvahmulah through the years.
@@ -314,7 +317,7 @@ export default function AboutPage() {
         <section className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">The Journey</h2>
+              <h2 className="font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">The Journey</h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 The remarkable story of how Tiger shark diving began in Fuvahmulah, in the words of Mr. Abdulla Zafar
@@ -378,7 +381,7 @@ export default function AboutPage() {
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Our Journey</h2>
+              <h2 className="font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Our Journey</h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 The evolution of diving in Fuvahmulah from humble beginnings to a world-renowned destination.
@@ -430,7 +433,7 @@ export default function AboutPage() {
           <div className="max-w-screen-xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="text-left order-2 md:order-1">
-                <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-6">Fuvahmulah Today</h2>
+                <h2 className="font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-6">Fuvahmulah Today</h2>
                 <p className="text-lg text-gray-700 mb-6">
                   Fuvahmulah is becoming more popular day by day. Even dive stakeholders have started promoting
                   Fuvahmulah on different platforms, such as dive fairs. Our dive site is the world's No. 1 Tiger shark
@@ -468,7 +471,7 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-16 px-4 bg-[#0b385b] text-white">
           <div className="max-w-screen-xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Experience the Legend of Fuvahmulah</h2>
+            <h2 className="font-nasa text-3xl md:text-4xl font-bold mb-6">Experience the Legend of Fuvahmulah</h2>
             <p className="text-xl mb-8 max-w-3xl mx-auto">
               Join us for an unforgettable diving adventure with Tiger sharks in the pristine waters of Fuvahmulah.
             </p>

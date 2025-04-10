@@ -114,7 +114,7 @@ function Footer() {
       
       <div className="border-t border-gray-700 mt-8 pt-8 text-center">
         <p className="text-gray-300">
-          &copy; {new Date().getFullYear()} Scubachannel Fuvahmulah Pvt Ltd. All rights reserved.
+          &copy; {new Date().getFullYear()} Southern channel Pvt Ltd. All rights reserved.
         </p>
       </div>
     </div>

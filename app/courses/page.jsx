@@ -19,51 +19,57 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaDollarSign,
-  FaChild,
-  FaBook,
   FaHotel,
-  FaPlus,
 } from "react-icons/fa"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
-// NASA font style
+// Add NASA font style
 const nasaFontStyle = `
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+  @font-face {
+    font-family: 'NASA';
+    src: url('/font/Nasa.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
   
-  .nasa-font {
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+  .font-nasa {
+    font-family: 'NASA', sans-serif !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
   }
 `
 
 export default function CoursesPage() {
   const [isVisible, setIsVisible] = useState(false)
-  const [activeTab, setActiveTab] = useState("beginners")
+  const [activeTab, setActiveTab] = useState("openwater")
   const [openAccordions, setOpenAccordions] = useState({})
   const [openFaqs, setOpenFaqs] = useState({})
   const [activePriceTab, setActivePriceTab] = useState("individual")
 
   useEffect(() => {
     setIsVisible(true)
+  }, [])
 
+  useEffect(() => {
     // Inject NASA font style
     const style = document.createElement("style")
     style.innerHTML = nasaFontStyle
     document.head.appendChild(style)
 
-    // Add Google Fonts link
-    const link = document.createElement("link")
-    link.rel = "stylesheet"
-    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
-    document.head.appendChild(link)
-
     return () => {
-      document.head.removeChild(style)
-      if (document.head.contains(link)) {
-        document.head.removeChild(link)
-      }
+      // Find and remove the style element
+      const styleElements = document.querySelectorAll("style")
+      styleElements.forEach((el) => {
+        if (el.innerHTML.includes(".font-nasa") && document.head.contains(el)) {
+          try {
+            document.head.removeChild(el)
+          } catch (error) {
+            console.log("Style element already removed")
+          }
+        }
+      })
     }
   }, [])
 
@@ -81,73 +87,15 @@ export default function CoursesPage() {
     }))
   }
 
+  // Updated course categories based on client's information
   const courseCategories = [
     {
-      id: "beginners",
-      title: "For Beginners",
-      icon: <FaChild className="h-6 w-6" />,
-      description:
-        "Perfect introductory experiences for those who want to try diving for the first time without committing to a full certification course.",
-      courses: [
-        {
-          title: "PADI Bubble Maker",
-          duration: "45 minutes",
-          price: "$50",
-          description: "A fun, pool-based introduction to scuba diving for children aged 8-10 years.",
-          requirements: ["Age 8-10 years", "Basic swimming skills", "Good health"],
-          includes: ["Pool session", "Basic scuba skills", "Professional supervision", "All equipment provided"],
-          skills: [
-            "Breathing underwater",
-            "Basic equipment usage",
-            "Fun underwater activities",
-            "Introduction to aquatic life",
-          ],
-        },
-        {
-          title: "PADI Discover Scuba Diving",
-          duration: "60 minutes",
-          price: "$80",
-          description: "Experience the underwater world with a supervised dive in a controlled environment.",
-          requirements: ["Age 10+ years", "Basic swimming skills", "Good health"],
-          includes: ["Theory briefing", "Shallow water skills practice", "Guided dive", "All equipment provided"],
-          skills: [
-            "Breathing underwater",
-            "Basic equipment usage",
-            "Simple underwater communication",
-            "Buoyancy awareness",
-          ],
-        },
-      ],
-    },
-    {
-      id: "certification",
-      title: "PADI Beginners Courses",
+      id: "openwater",
+      title: "Open Water",
       icon: <FaWater className="h-6 w-6" />,
       description:
-        "Full certification courses for beginners that include all materials needed to become a certified diver.",
+        "The world's most popular diving course that qualifies you to dive independently with a buddy to 18 meters/60 feet.",
       courses: [
-        {
-          title: "PADI Scuba Diver Course",
-          duration: "2 - 3 days",
-          price: "$300",
-          description:
-            "A subset of the Open Water Diver course that qualifies you to dive under the supervision of a professional to 12 meters/40 feet.",
-          requirements: ["Age 10+ years", "Basic swimming skills", "Good health"],
-          includes: [
-            "All learning materials",
-            "Knowledge development sessions",
-            "3 confined water dives",
-            "2 open water dives",
-            "PADI certification upon completion",
-          ],
-          skills: [
-            "Basic dive equipment setup",
-            "Pre-dive safety checks",
-            "Underwater breathing techniques",
-            "Mask clearing",
-            "Regulator recovery",
-          ],
-        },
         {
           title: "PADI Open Water Diver",
           duration: "3 - 4 days",
@@ -173,49 +121,10 @@ export default function CoursesPage() {
       ],
     },
     {
-      id: "referral",
-      title: "For Open Water Referral and e-Learning",
+      id: "advanced",
+      title: "Advanced Open Water",
       icon: <FaAnchor className="h-6 w-6" />,
-      description:
-        "Options for those who have started their training elsewhere or completed the theory portion online.",
-      courses: [
-        {
-          title: "Upgrade to Open Water",
-          duration: "2 - 3 days",
-          price: "$350",
-          description:
-            "Complete your Open Water certification if you've already earned your PADI Scuba Diver certification.",
-          requirements: ["PADI Scuba Diver certification", "Good health"],
-          includes: [
-            "Additional learning materials",
-            "2 confined water dives",
-            "2 open water dives",
-            "PADI Open Water certification upon completion",
-          ],
-          skills: ["Advanced buoyancy control", "Navigation techniques", "Deep water skills", "Problem management"],
-        },
-        {
-          title: "Open Water Diver Course",
-          duration: "2 - 3 days",
-          price: "$400",
-          description:
-            "Complete the in-water portion of your Open Water Diver course after finishing e-Learning or referral.",
-          requirements: ["Completed PADI e-Learning or referral", "Good health"],
-          includes: ["5 confined water dives", "4 open water dives", "PADI certification upon completion"],
-          skills: [
-            "Practical application of theory knowledge",
-            "Equipment setup and use",
-            "Underwater skills mastery",
-            "Open water experience",
-          ],
-        },
-      ],
-    },
-    {
-      id: "continuing",
-      title: "PADI Continuing Education",
-      icon: <FaGraduationCap className="h-6 w-6" />,
-      description: "Advanced courses for certified divers looking to expand their skills and experience.",
+      description: "Expand your diving knowledge with 5 adventure dives, including deep and navigation dives.",
       courses: [
         {
           title: "Advanced Open Water Dive",
@@ -231,24 +140,14 @@ export default function CoursesPage() {
             "Specialized diving activities",
           ],
         },
-        {
-          title: "Speciality Dives",
-          duration: "Per dive",
-          price: "$190",
-          description: "Focus on specific diving activities or environments to enhance your skills in that area.",
-          requirements: ["Appropriate certification level", "Good health"],
-          includes: ["Specialized training", "Guided specialty dive", "Logbook entry"],
-          skills: ["Activity-specific techniques", "Specialized equipment use", "Environment-specific knowledge"],
-        },
-        {
-          title: "Deep Speciality",
-          duration: "Course fee",
-          price: "$190",
-          description: "Master the techniques needed for diving between 18-40 meters safely and confidently.",
-          requirements: ["Advanced Open Water Diver certification", "Good health"],
-          includes: ["Learning materials", "4 deep dives", "PADI certification upon completion"],
-          skills: ["Deep diving planning", "Gas management", "Nitrogen narcosis awareness", "Safety procedures"],
-        },
+      ],
+    },
+    {
+      id: "efr",
+      title: "EFR & Rescue",
+      icon: <FaLifeRing className="h-6 w-6" />,
+      description: "Learn essential first aid, CPR skills, and how to prevent and manage diving emergencies.",
+      courses: [
         {
           title: "Emergency First Response (EFR)",
           duration: "Minimum 2 days",
@@ -279,48 +178,12 @@ export default function CoursesPage() {
             "Rescue techniques",
           ],
         },
-        {
-          title: "Nitrox",
-          duration: "Minimum 2 days",
-          price: "$300",
-          description: "Learn to use enriched air nitrox to extend bottom times and reduce nitrogen loading.",
-          requirements: ["Open Water Diver certification", "Good health"],
-          includes: [
-            "Learning materials",
-            "Theory sessions",
-            "Optional nitrox dives",
-            "PADI certification upon completion",
-          ],
-          skills: [
-            "Nitrox analysis",
-            "Maximum operating depth calculation",
-            "Oxygen exposure management",
-            "Equipment considerations",
-          ],
-        },
-      ],
-    },
-    {
-      id: "materials",
-      title: "PADI Course Materials",
-      icon: <FaBook className="h-6 w-6" />,
-      description: "Essential learning materials for PADI courses.",
-      courses: [
-        {
-          title: "Course Materials",
-          duration: "N/A",
-          price: "$163.24",
-          description: "Official PADI learning materials required for certification courses.",
-          requirements: ["Enrollment in a PADI course"],
-          includes: ["Course manual", "Dive tables", "Logbook", "Training record", "Digital resources"],
-          skills: ["Theoretical knowledge", "Dive planning tools", "Reference materials"],
-        },
       ],
     },
     {
       id: "divemaster",
-      title: "Divemaster Course",
-      icon: <FaLifeRing className="h-6 w-6" />,
+      title: "Divemaster",
+      icon: <FaGraduationCap className="h-6 w-6" />,
       description: "Professional-level training to lead certified divers and assist instructors.",
       courses: [
         {
@@ -350,29 +213,56 @@ export default function CoursesPage() {
             "Assisting with student training",
           ],
         },
+      ],
+    },
+    {
+      id: "specialty",
+      title: "Specialty Courses",
+      icon: <FaFish className="h-6 w-6" />,
+      description: "Focus on specific diving activities or environments to enhance your skills in that area.",
+      courses: [
         {
-          title: "PADI Divemaster Internship",
-          duration: "Minimum 3 - 11 weeks",
-          price: "Contact us",
+          title: "Tiger Shark Specialty",
+          duration: "2 days",
+          price: "$300",
           description:
-            "An immersive professional training program with hands-on experience in a dive center environment.",
-          requirements: [
-            "Rescue Diver certification",
-            "EFR certification within 24 months",
-            "Medical clearance",
-            "Age 18+ years",
-          ],
+            "Learn specialized techniques for safely diving with tiger sharks in Fuvahmulah's unique environment.",
+          requirements: ["Open Water Diver certification", "Good health"],
           includes: [
-            "All learning materials",
-            "Extensive practical experience",
-            "Mentoring from experienced professionals",
-            "PADI certification upon completion",
+            "Learning materials",
+            "Specialized training",
+            "2 tiger shark dives",
+            "Certification upon completion",
           ],
           skills: [
-            "Comprehensive dive operation knowledge",
-            "Extended practical experience",
-            "Professional development",
-            "Career preparation",
+            "Shark behavior understanding",
+            "Safety procedures",
+            "Proper positioning",
+            "Environmental awareness",
+          ],
+        },
+        {
+          title: "Deep Diver Specialty",
+          duration: "2 days",
+          price: "$250",
+          description:
+            "Master the skills needed for diving between 18-40 meters, including special equipment and safety procedures.",
+          requirements: ["Advanced Open Water Diver certification", "Good health"],
+          includes: ["Learning materials", "4 deep dives", "PADI certification upon completion"],
+          skills: ["Deep diving planning", "Gas management", "Nitrogen narcosis awareness", "Safety procedures"],
+        },
+        {
+          title: "Night Diver Specialty",
+          duration: "2 days",
+          price: "$225",
+          description: "Discover the nocturnal underwater world with specialized training for night diving conditions.",
+          requirements: ["Open Water Diver certification", "Good health"],
+          includes: ["Learning materials", "3 night dives", "PADI certification upon completion"],
+          skills: [
+            "Light signal communication",
+            "Navigation at night",
+            "Nocturnal marine life identification",
+            "Safety procedures",
           ],
         },
       ],
@@ -457,27 +347,9 @@ export default function CoursesPage() {
       answer:
         "Diving with tiger sharks at Fuvahmulah is safe when conducted with experienced guides who understand shark behavior. Our instructors are specially trained in shark diving protocols and safety procedures. We maintain small group sizes and ensure all divers are properly briefed before entering the water. While there is always some inherent risk in any adventure activity, our perfect safety record demonstrates our commitment to responsible shark diving practices.",
     },
-    {
-      id: "faq-6",
-      question: "What if I can't complete the course in the scheduled time?",
-      answer:
-        "We understand that everyone learns at their own pace. If you need additional time to complete your course, we can arrange extra training sessions at a nominal fee. Your certification is valid once you've successfully completed all requirements, regardless of how long it takes. We're committed to ensuring you become a confident and competent diver.",
-    },
-    {
-      id: "faq-7",
-      question: "What's the difference between PADI Scuba Diver and Open Water Diver?",
-      answer:
-        "The PADI Scuba Diver is a subset of the Open Water Diver course. It requires less time but has more limitations. Scuba Divers are certified to dive under the supervision of a PADI professional to a maximum depth of 12 meters/40 feet, while Open Water Divers can dive independently with a buddy to 18 meters/60 feet. You can always upgrade from Scuba Diver to Open Water Diver later.",
-    },
-    {
-      id: "faq-8",
-      question: "What is Nitrox and why should I consider this specialty?",
-      answer:
-        "Nitrox, or Enriched Air, contains more oxygen and less nitrogen than regular air. This can extend your bottom time by reducing nitrogen absorption and shortening surface intervals between dives. The PADI Nitrox course teaches you how to safely use enriched air with up to 40% oxygen. It's one of the most popular specialties because of the immediate benefits it offers to your diving.",
-    },
   ]
 
-  // New dive packages data
+  // Dive packages data
   const divePackages = [
     {
       nights: 3,
@@ -499,25 +371,6 @@ export default function CoursesPage() {
       ],
     },
     {
-      nights: 4,
-      dives: 9,
-      price: {
-        single: 900,
-        double: 1650,
-        nonDiver: 336,
-      },
-      includes: [
-        "Accommodation",
-        "Hotel Room",
-        "Breakfast",
-        "Hotel arrival & departure",
-        "For diving Pick-up and drop-off",
-        "3 Dive days (3 Dives per day)",
-        "3 Tiger Shark dives",
-        "6 Reef dives",
-      ],
-    },
-    {
       nights: 5,
       dives: 9,
       price: {
@@ -534,25 +387,6 @@ export default function CoursesPage() {
         "3 Dive days (3 Dives per day)",
         "3 Tiger Shark dives",
         "6 Reef dives",
-      ],
-    },
-    {
-      nights: 6,
-      dives: 12,
-      price: {
-        single: 1200,
-        double: 2150,
-        nonDiver: 504,
-      },
-      includes: [
-        "Accommodation",
-        "Hotel Room",
-        "Breakfast",
-        "Hotel arrival & departure",
-        "For diving Pick-up and drop-off",
-        "4 Dive days (3 Dives per day)",
-        "4 Tiger Shark dives",
-        "8 Reef dives",
       ],
     },
     {
@@ -576,98 +410,6 @@ export default function CoursesPage() {
       ],
       popular: true,
     },
-    {
-      nights: 8,
-      dives: 18,
-      price: {
-        single: 1750,
-        double: 3157,
-        nonDiver: 672,
-      },
-      includes: [
-        "Accommodation",
-        "Hotel Room",
-        "Breakfast",
-        "Hotel arrival & departure",
-        "For diving Pick-up and drop-off",
-        "6 Dive days (3 Dives per day)",
-        "6 Tiger Shark dives",
-        "12 Reef dives",
-        "Complimentary sunset cruise",
-      ],
-    },
-    {
-      nights: 9,
-      dives: 21,
-      price: {
-        single: 2020,
-        double: 3780,
-        nonDiver: 756,
-      },
-      includes: [
-        "Accommodation",
-        "Hotel Room",
-        "Breakfast",
-        "Hotel arrival & departure",
-        "For diving Pick-up and drop-off",
-        "7 Dive days (3 Dives per day)",
-        "7 Tiger Shark dives",
-        "14 Reef dives",
-        "Complimentary sunset cruise",
-      ],
-    },
-    {
-      nights: 10,
-      dives: 24,
-      price: {
-        single: 2280,
-        double: 4330,
-        nonDiver: 840,
-      },
-      includes: [
-        "Accommodation",
-        "Hotel Room",
-        "Breakfast",
-        "Hotel arrival & departure",
-        "For diving Pick-up and drop-off",
-        "8 Dive days (3 Dives per day)",
-        "8 Tiger Shark dives",
-        "16 Reef dives",
-        "Complimentary sunset cruise",
-      ],
-    },
-  ]
-
-  // Add-ons data
-  const addOns = [
-    {
-      category: "DOMESTIC FLIGHT TICKET MALE' / FUVAHMULAH",
-      items: [
-        { name: "One way", price: 149 },
-        { name: "Return", price: 298 },
-      ],
-    },
-    {
-      category: "SCHEDULED SPEED BOAT ADDU / FUVAHMULAH",
-      items: [
-        { name: "One way", price: 20 },
-        { name: "Return", price: 40 },
-      ],
-    },
-    {
-      category: "DIVE EQUIPMENT rental per day",
-      items: [
-        { name: "Full set", price: 15 },
-        { name: "Regulator", price: 5 },
-        { name: "BCD", price: 5 },
-        { name: "Wetsuit", price: 5 },
-        { name: "Computer", price: 5 },
-      ],
-    },
-    {
-      category: "LUNCH & DINNER",
-      items: [{ name: "Per meal", price: 15 }],
-    },
   ]
 
   return (
@@ -681,7 +423,7 @@ export default function CoursesPage() {
           <Image
             src="/shark_1.jpg"
             alt="Underwater Background"
-            layout="fill" // Ensure the image fills the container
+            layout="fill"
             className="object-cover object-center opacity-50"
             priority
           />
@@ -693,10 +435,10 @@ export default function CoursesPage() {
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className=" text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">
-            Our Diving Courses
+          <h1 className={`font-nasa text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider uppercase`}>
+            Our PADI Diving Courses
           </h1>
-          <p className=" text-xl md:text-2xl text-white mb-8 tracking-wide">
+          <p className="text-xl md:text-2xl text-white mb-8 tracking-wide">
             From beginners to professionals, we offer a wide range of PADI certified courses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -722,7 +464,7 @@ export default function CoursesPage() {
         <section className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Dive Prices</h2>
+              <h2 className={`font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>Dive Prices</h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Transparent pricing for all our diving services, equipment rentals, and additional services.
@@ -752,15 +494,6 @@ export default function CoursesPage() {
               >
                 <FaHotel className="h-5 w-5" />
                 Dive Packages
-              </button>
-              <button
-                onClick={() => setActivePriceTab("addons")}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-colors ${
-                  activePriceTab === "addons" ? "bg-[#0b385b] text-white" : "bg-white text-[#0b385b] hover:bg-gray-200"
-                }`}
-              >
-                <FaPlus className="h-5 w-5" />
-                Add-ons
               </button>
             </div>
 
@@ -854,70 +587,30 @@ export default function CoursesPage() {
                   </div>
                 </div>
 
-                {/* Transportation */}
+                {/* Equipment Rental */}
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                   <div className="bg-[#0b385b] text-white p-4">
-                    <h3 className="text-xl font-bold">Pick-up & Drop-off</h3>
+                    <h3 className="text-xl font-bold">Equipment Rental (Per Day)</h3>
                   </div>
                   <div className="p-6">
                     <div className="space-y-4">
                       <div className="flex justify-between items-center pb-2 border-b border-gray-200">
-                        <span>Hotel/Harbour Transfer</span>
-                        <span className="font-bold text-[#0b385b]">$8 per person per day</span>
+                        <span>Full Set</span>
+                        <span className="font-bold text-[#0b385b]">$15</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                        <span>BCD</span>
+                        <span className="font-bold text-[#0b385b]">$5</span>
+                      </div>
+                      <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                        <span>Regulator</span>
+                        <span className="font-bold text-[#0b385b]">$5</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span>Motorbike Rental</span>
-                        <span className="font-bold text-[#0b385b]">$15 per day</span>
+                        <span>Dive Computer</span>
+                        <span className="font-bold text-[#0b385b]">$5</span>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Equipment Rental */}
-              <div className="mt-8 bg-white rounded-xl shadow-lg overflow-hidden">
-                <div className="bg-[#0b385b] text-white p-4">
-                  <h3 className="text-xl font-bold">Dive Equipment Rental (Per Day)</h3>
-                </div>
-                <div className="p-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
-                      <span>Full Set (BCD, Wetsuit, Regulator, Dive Computer)</span>
-                      <span className="font-bold text-[#0b385b]">$15</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
-                      <span>BCD</span>
-                      <span className="font-bold text-[#0b385b]">$5</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
-                      <span>Wetsuit</span>
-                      <span className="font-bold text-[#0b385b]">$5</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
-                      <span>Regulator</span>
-                      <span className="font-bold text-[#0b385b]">$5</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
-                      <span>Dive Computer</span>
-                      <span className="font-bold text-[#0b385b]">$5</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b border-gray-200">
-                      <span>15L Tank Upgrade</span>
-                      <span className="font-bold text-[#0b385b]">$5</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Extras */}
-              <div className="mt-8 bg-white rounded-xl shadow-lg overflow-hidden">
-                <div className="bg-[#0b385b] text-white p-4">
-                  <h3 className="text-xl font-bold">Extras</h3>
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-center">
-                    <span>GoPro Camera Rental</span>
-                    <span className="font-bold text-[#0b385b]">$25 per day</span>
                   </div>
                 </div>
               </div>
@@ -974,35 +667,6 @@ export default function CoursesPage() {
                 </table>
               </div>
             </div>
-
-            {/* Add-ons Tab */}
-            <div className={`${activePriceTab === "addons" ? "block" : "hidden"}`}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {addOns.map((category, index) => (
-                  <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div className="bg-[#0b385b] text-white p-4">
-                      <h3 className="text-xl font-bold">{category.category}</h3>
-                    </div>
-                    <div className="p-6">
-                      <div className="space-y-4">
-                        {category.items.map((item, i) => (
-                          <div
-                            key={i}
-                            className={`flex justify-between items-center ${i < category.items.length - 1 ? "pb-2 border-b border-gray-200" : ""}`}
-                          >
-                            <span>{item.name}</span>
-                            <span className="font-bold text-[#0b385b]">
-                              ${item.price}
-                              {item.name.includes("per") ? "" : " per person"}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
@@ -1010,7 +674,9 @@ export default function CoursesPage() {
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">PADI Diving Courses</h2>
+              <h2 className={`font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                PADI Diving Courses
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Browse our comprehensive range of PADI courses with transparent pricing and duration information.
@@ -1027,33 +693,11 @@ export default function CoursesPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* For Beginners */}
+                  {/* Open Water */}
                   <tr className="bg-gray-100">
                     <td colSpan={3} className="px-6 py-3 font-bold text-[#0b385b]">
-                      For Beginners
+                      Open Water
                     </td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">PADI Bubble Maker</td>
-                    <td className="px-6 py-4">45 minutes</td>
-                    <td className="px-6 py-4">$50</td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">PADI Discover Scuba Diving</td>
-                    <td className="px-6 py-4">60 minutes</td>
-                    <td className="px-6 py-4">$80</td>
-                  </tr>
-
-                  {/* PADI Beginners Courses */}
-                  <tr className="bg-gray-100">
-                    <td colSpan={3} className="px-6 py-3 font-bold text-[#0b385b]">
-                      PADI Beginners Courses (including materials)
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">PADI Scuba Diver Course</td>
-                    <td className="px-6 py-4">2 - 3 days</td>
-                    <td className="px-6 py-4">$300</td>
                   </tr>
                   <tr className="border-b border-gray-200">
                     <td className="px-6 py-4">PADI Open Water Diver</td>
@@ -1061,27 +705,10 @@ export default function CoursesPage() {
                     <td className="px-6 py-4">$550</td>
                   </tr>
 
-                  {/* For Open Water referral and e-Learning */}
+                  {/* Advanced Open Water */}
                   <tr className="bg-gray-100">
                     <td colSpan={3} className="px-6 py-3 font-bold text-[#0b385b]">
-                      For Open Water referral and e-Learning
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">Upgrade to Open Water</td>
-                    <td className="px-6 py-4">2 - 3 days</td>
-                    <td className="px-6 py-4">$350</td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">Open Water Diver Course</td>
-                    <td className="px-6 py-4">2 - 3 days</td>
-                    <td className="px-6 py-4">$400</td>
-                  </tr>
-
-                  {/* PADI Continuing Education */}
-                  <tr className="bg-gray-100">
-                    <td colSpan={3} className="px-6 py-3 font-bold text-[#0b385b]">
-                      PADI Continuing Education
+                      Advanced Open Water
                     </td>
                   </tr>
                   <tr className="border-b border-gray-200">
@@ -1089,15 +716,12 @@ export default function CoursesPage() {
                     <td className="px-6 py-4">minimum 2 days</td>
                     <td className="px-6 py-4">$421</td>
                   </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">Speciality Dives</td>
-                    <td className="px-6 py-4">Per dive</td>
-                    <td className="px-6 py-4">$190</td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">Deep Speciality</td>
-                    <td className="px-6 py-4">Course fee</td>
-                    <td className="px-6 py-4">$190</td>
+
+                  {/* EFR & Rescue */}
+                  <tr className="bg-gray-100">
+                    <td colSpan={3} className="px-6 py-3 font-bold text-[#0b385b]">
+                      EFR & Rescue
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-200">
                     <td className="px-6 py-4">Emergency First Response (EFR)</td>
@@ -1109,28 +733,11 @@ export default function CoursesPage() {
                     <td className="px-6 py-4">5 days</td>
                     <td className="px-6 py-4">$600</td>
                   </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">Nitrox</td>
-                    <td className="px-6 py-4">Minimum 2 days</td>
-                    <td className="px-6 py-4">$300</td>
-                  </tr>
 
-                  {/* PADI Course material */}
+                  {/* Divemaster */}
                   <tr className="bg-gray-100">
                     <td colSpan={3} className="px-6 py-3 font-bold text-[#0b385b]">
-                      PADI Course material
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4">Course material</td>
-                    <td className="px-6 py-4">N/A</td>
-                    <td className="px-6 py-4">$163.24</td>
-                  </tr>
-
-                  {/* Divemaster Course */}
-                  <tr className="bg-gray-100">
-                    <td colSpan={3} className="px-6 py-3 font-bold text-[#0b385b]">
-                      Divemaster Course
+                      Divemaster
                     </td>
                   </tr>
                   <tr className="border-b border-gray-200">
@@ -1138,10 +745,32 @@ export default function CoursesPage() {
                     <td className="px-6 py-4">2 - 4 weeks</td>
                     <td className="px-6 py-4">$1000</td>
                   </tr>
+
+                  {/* Specialty Courses */}
+                  <tr className="bg-gray-100">
+                    <td colSpan={3} className="px-6 py-3 font-bold text-[#0b385b]">
+                      Specialty Courses
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-200">
+                    <td className="px-6 py-4">Tiger Shark Specialty</td>
+                    <td className="px-6 py-4">2 days</td>
+                    <td className="px-6 py-4">$300</td>
+                  </tr>
+                  <tr className="border-b border-gray-200">
+                    <td className="px-6 py-4">Deep Diver Specialty</td>
+                    <td className="px-6 py-4">2 days</td>
+                    <td className="px-6 py-4">$250</td>
+                  </tr>
+                  <tr className="border-b border-gray-200">
+                    <td className="px-6 py-4">Night Diver Specialty</td>
+                    <td className="px-6 py-4">2 days</td>
+                    <td className="px-6 py-4">$225</td>
+                  </tr>
                   <tr>
-                    <td className="px-6 py-4">PADI Divemaster Internship</td>
-                    <td className="px-6 py-4">Minimum 3 - 11 weeks</td>
-                    <td className="px-6 py-4">Contact us</td>
+                    <td className="px-6 py-4">Other Specialty Courses</td>
+                    <td className="px-6 py-4">1-2 days</td>
+                    <td className="px-6 py-4">$190-$275</td>
                   </tr>
                 </tbody>
               </table>
@@ -1153,7 +782,9 @@ export default function CoursesPage() {
         <section id="main-courses" className="py-16 px-4">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Course Details</h2>
+              <h2 className={`font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                Course Details
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Explore our comprehensive PADI certification courses with detailed information about what's included and
@@ -1335,7 +966,9 @@ export default function CoursesPage() {
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Specialty Courses</h2>
+              <h2 className={`font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                Specialty Courses
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Enhance your diving skills with our specialized courses designed to make you a more confident and
@@ -1378,158 +1011,13 @@ export default function CoursesPage() {
           </div>
         </section>
 
-        {/* Course Packages Section */}
-        <section className="py-16 px-4">
-          <div className="max-w-screen-xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Course Packages</h2>
-              <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
-              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-                Save time and money with our specially designed course packages that combine multiple certifications.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Beginner Package */}
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-[#0b385b] hover:shadow-xl transition-shadow">
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-[#0b385b] mb-2">Beginner Package</h3>
-                  <p className="text-gray-600 mb-6">Perfect for those new to diving</p>
-
-                  <div className="flex justify-center mb-6">
-                    <span className="text-4xl font-bold text-[#0b385b]">$650</span>
-                    <span className="text-gray-500 self-end mb-1 ml-2">$750 value</span>
-                  </div>
-
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Open Water Diver course</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Tiger Shark Specialty</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>2 fun dives with tiger sharks</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Underwater photos & videos</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Scubachannel t-shirt</span>
-                    </li>
-                  </ul>
-
-                  <Link
-                    href="/contact?package=beginner"
-                    className="w-full bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-6 rounded-full transition-colors flex items-center justify-center gap-2"
-                  >
-                    Book Package <FaArrowRight />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Advanced Package */}
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-[#0b385b] hover:shadow-xl transition-shadow relative">
-                <div className="absolute top-0 right-0 bg-[#0b385b] text-white px-4 py-1 text-sm font-bold">
-                  MOST POPULAR
-                </div>
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-[#0b385b] mb-2">Advanced Package</h3>
-                  <p className="text-gray-600 mb-6">For certified Open Water divers</p>
-
-                  <div className="flex justify-center mb-6">
-                    <span className="text-4xl font-bold text-[#0b385b]">$750</span>
-                    <span className="text-gray-500 self-end mb-1 ml-2">$900 value</span>
-                  </div>
-
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Advanced Open Water course</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Deep Diver Specialty</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>4 fun dives with tiger sharks</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Underwater photos & videos</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Scubachannel merchandise pack</span>
-                    </li>
-                  </ul>
-
-                  <Link
-                    href="/contact?package=advanced"
-                    className="w-full bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-6 rounded-full transition-colors flex items-center justify-center gap-2"
-                  >
-                    Book Package <FaArrowRight />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Professional Package */}
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-[#0b385b] hover:shadow-xl transition-shadow">
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-[#0b385b] mb-2">Pro Package</h3>
-                  <p className="text-gray-600 mb-6">Path to professional diving</p>
-
-                  <div className="flex justify-center mb-6">
-                    <span className="text-4xl font-bold text-[#0b385b]">$1100</span>
-                    <span className="text-gray-500 self-end mb-1 ml-2">$1350 value</span>
-                  </div>
-
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Rescue Diver course</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Emergency First Response</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>2 Specialty courses of choice</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>6 fun dives with tiger sharks</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <FaCheck className="text-[#0b385b] mt-1 flex-shrink-0" />
-                      <span>Premium dive equipment discount</span>
-                    </li>
-                  </ul>
-
-                  <Link
-                    href="/contact?package=professional"
-                    className="w-full bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-6 rounded-full transition-colors flex items-center justify-center gap-2"
-                  >
-                    Book Package <FaArrowRight />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* FAQ Section */}
-        <section className="py-16 px-4 bg-gray-50">
+        <section className="py-16 px-4 bg-white">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Frequently Asked Questions</h2>
+              <h2 className={`font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4 uppercase`}>
+                Frequently Asked Questions
+              </h2>
               <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
               <p className="text-lg text-gray-700 max-w-3xl mx-auto">
                 Find answers to common questions about our diving courses and requirements.
@@ -1569,7 +1057,9 @@ export default function CoursesPage() {
         {/* CTA Section */}
         <section className="py-16 px-4 bg-[#0b385b] text-white">
           <div className="max-w-screen-xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Diving Adventure?</h2>
+            <h2 className={`font-nasa text-3xl md:text-4xl font-bold mb-6 uppercase`}>
+              Ready to Start Your Diving Adventure?
+            </h2>
             <p className="text-xl mb-8 max-w-3xl mx-auto">
               Book your diving course today and discover the underwater wonders of Fuvahmulah with our expert
               instructors.
@@ -1597,4 +1087,3 @@ export default function CoursesPage() {
     </div>
   )
 }
-
