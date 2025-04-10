@@ -693,10 +693,10 @@ export default function CoursesPage() {
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className="nasa-font text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">
+          <h1 className=" text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">
             Our Diving Courses
           </h1>
-          <p className="nasa-font text-xl md:text-2xl text-white mb-8 tracking-wide">
+          <p className=" text-xl md:text-2xl text-white mb-8 tracking-wide">
             From beginners to professionals, we offer a wide range of PADI certified courses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

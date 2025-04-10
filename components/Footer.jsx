@@ -102,7 +102,7 @@ function Footer() {
             </li>
             <li className="flex items-start gap-3">
               <FaPhone className="text-white mt-1 flex-shrink-0" />
-              <span className="text-gray-300">+960 7795512</span>
+              <span className="text-gray-300">+960 7930760</span>
             </li>
             <li className="flex items-start gap-3">
               <FaEnvelope className="text-white mt-1 flex-shrink-0" />
@@ -114,7 +114,7 @@ function Footer() {
       
       <div className="border-t border-gray-700 mt-8 pt-8 text-center">
         <p className="text-gray-300">
-          &copy; {new Date().getFullYear()} Scubachannel Fuvahmulah. All rights reserved.
+          &copy; {new Date().getFullYear()} Scubachannel Fuvahmulah Pvt Ltd. All rights reserved.
         </p>
       </div>
     </div>

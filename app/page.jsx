@@ -195,10 +195,10 @@ export default function HomePage() {
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"} relative z-10`}
         >
-          <h1 className="nasa-font text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">
+          <h1 className=" text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">
             Discover the Underwater Paradise of Fuvahmulah
           </h1>
-          <p className="nasa-font text-xl md:text-2xl text-white mb-8 tracking-wide">
+          <p className=" text-xl md:text-2xl text-white mb-8 tracking-wide">
             Experience world-class diving with tiger sharks and vibrant marine life in the pristine waters of the
             Maldives
           </p>
@@ -274,7 +274,7 @@ export default function HomePage() {
         </section>
         {/* Right Side - Partner Logos (Top Right) */}
         <div className="flex justify-center items-center gap-8">
-          {["/dan.png", "/padi.png", "/subapro.png"].map((src, index) => (
+          {["/dan.png", "/padi.png", "/subapro.png","/mares.jpg"].map((src, index) => (
             <div key={index} className=" flex">
               <Image
                 src={src || "/placeholder.svg"}

@@ -75,7 +75,7 @@ export default function AboutPage() {
       image: "/img-7.JPG",
     },
     {
-      year: "2013",
+      year: "2019",
       title: "First Guided Dives",
       description:
         "Mr. Zafar began guiding clients to the Tiger shark point, establishing the foundation for shark diving tourism.",
@@ -113,11 +113,7 @@ export default function AboutPage() {
       caption: "First Tiger shark encounters",
       year: "2013",
     },
-    {
-      image: "/img.jpg",
-      caption: "Opening our first dive center",
-      year: "2014",
-    },
+  
     {
       image: "/img-5.JPG",
       caption: "Growing our team of instructors",
@@ -134,10 +130,16 @@ export default function AboutPage() {
       year: "2018",
     },
     {
+      image: "/img.jpg",
+      caption: "Opening our first dive center",
+      year: "2019",
+    },
+    {
       image: "/instruct.JPG",
       caption: "Our operations today",
       year: "Present",
     },
+    
   ]
 
   const nextImage = () => {
@@ -175,8 +177,8 @@ export default function AboutPage() {
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className="nasa-font text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Our Story</h1>
-          <p className="nasa-font text-xl md:text-2xl text-white mb-8 tracking-wide">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Our Story</h1>
+          <p className="text-xl md:text-2xl text-white mb-8 tracking-wide">
             Discover how Fuvahmulah became the world's premier Tiger shark diving destination
           </p>
         </div>

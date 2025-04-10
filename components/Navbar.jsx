@@ -4,17 +4,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube, FaBars, FaTimes } from "react-icons/fa"
+import localFont from "next/font/local"
 
-// NASA font style
-const nasaFontStyle = `
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
-  
-  .nasa-font {
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-`
+// Import NASA font
+const nasaFont = localFont({
+  src: "../public/font/Nasa.ttf",
+  variable: "--font-nasa",
+})
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -59,30 +55,6 @@ function Navbar() {
     }
   }, [isMenuOpen])
 
-  // Load NASA font
-  useEffect(() => {
-    // Inject NASA font style
-    const style = document.createElement("style")
-    style.innerHTML = nasaFontStyle
-    document.head.appendChild(style)
-
-    // Add Google Fonts link
-    const link = document.createElement("link")
-    link.rel = "stylesheet"
-    link.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
-    document.head.appendChild(link)
-
-    return () => {
-      // Check if elements exist and are children of document.head before removing
-      if (style && style.parentNode === document.head) {
-        document.head.removeChild(style)
-      }
-      if (link && link.parentNode === document.head) {
-        document.head.removeChild(link)
-      }
-    }
-  }, [])
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 w-full px-4 py-3 transition-all duration-300 ${
@@ -102,17 +74,19 @@ function Navbar() {
                 className="rounded-full md:w-[80px] md:h-[80px]"
               />
             </Link>
-            <p className="nasa-font text-lg sm:text-2xl md:text-3xl font-bold text-white hidden sm:block tracking-wider">
+            <p
+              className={`${nasaFont.className} text-lg sm:text-2xl md:text-3xl font-bold text-white hidden sm:block tracking-wider uppercase`}
+            >
               <span className="text-white">Scubachannel</span> Fuvahmulah
             </p>
-            <p className="nasa-font text-lg font-bold text-white sm:hidden tracking-wider">
+            <p className={`${nasaFont.className} text-lg font-bold text-white sm:hidden tracking-wider uppercase`}>
               <span className="text-white">Scubachannel</span>
             </p>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <div className="flex space-x-6 text-white text-lg nasa-font tracking-wider">
+            <div className="flex space-x-6 text-white text-lg tracking-wider">
               <Link href="/" className="hover:text-gray-300 transition-colors">
                 Home
               </Link>
@@ -130,18 +104,18 @@ function Navbar() {
 
           {/* Social Icons - Desktop */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="#" className="text-white hover:text-gray-300 transition-colors">
+            <Link href="https://www.facebook.com/share/18u7oE113F/?mibextid=wwXIfr" className="text-white hover:text-gray-300 transition-colors">
               <FaFacebookF />
             </Link>
-            <Link href="#" className="text-white hover:text-gray-300 transition-colors">
+            <Link href="https://www.instagram.com/scubachannelfvm?igsh=MW5vZDJ4ZDZpMGdicg%3D%3D&utm_source=qr" className="text-white hover:text-gray-300 transition-colors">
               <FaInstagram />
             </Link>
-            <Link href="#" className="text-white hover:text-gray-300 transition-colors">
+            <Link href="https://x.com/scubachannelfvm?s=21&t=lH-WtqFiIOVaHTDYXc8iUg" className="text-white hover:text-gray-300 transition-colors">
               <FaTwitter />
             </Link>
-            <Link href="#" className="text-white hover:text-gray-300 transition-colors">
+            {/* <Link href="#" className="text-white hover:text-gray-300 transition-colors">
               <FaYoutube />
-            </Link>
+            </Link> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -162,7 +136,7 @@ function Navbar() {
         } md:hidden pt-20`}
       >
         <div className="flex flex-col h-full">
-          <nav className="flex flex-col items-center gap-6 py-8 text-white text-xl nasa-font tracking-wider">
+          <nav className="flex flex-col items-center gap-6 py-8 text-white text-xl tracking-wider">
             <Link href="/" className="hover:text-gray-300 transition-colors py-2" onClick={() => setIsMenuOpen(false)}>
               Home
             </Link>
@@ -221,7 +195,7 @@ function Navbar() {
             </Link>
           </div>
 
-          <div className="mt-auto p-6 text-center text-white/70 nasa-font">
+          <div className="mt-auto p-6 text-center text-white/70">
             <p>© {new Date().getFullYear()} Scubachannel Fuvahmulah</p>
           </div>
         </div>

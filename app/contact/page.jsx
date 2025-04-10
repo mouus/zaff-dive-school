@@ -136,7 +136,7 @@ export default function ContactPage() {
     {
       icon: <FaPhone className="text-white" />,
       title: "Phone Numbers",
-      details: ["+960 7795512", "+960 7930760"],
+      details: [ "+960 7930760"],
     },
     {
       icon: <FaEnvelope className="text-white" />,
@@ -195,8 +195,8 @@ export default function ContactPage() {
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <h1 className="nasa-font text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Contact Us</h1>
-          <p className="nasa-font text-xl md:text-2xl text-white mb-8 tracking-wide">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Contact Us</h1>
+          <p className="text-xl md:text-2xl text-white mb-8 tracking-wide">
             Have questions about our diving courses or want to book your next underwater adventure? Get in touch with
             our team today.
           </p>
@@ -573,7 +573,7 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-[#0b385b]">Our Partners</h2>
             </div>
             <div className="flex flex-wrap justify-center items-center gap-8">
-              {["/dan.png", "/padi.png", "/subapro.png"].map((src, index) => (
+              {["/dan.png", "/padi.png", "/subapro.png","/mares.jpg"].map((src, index) => (
                 <div key={index} className="flex">
                   <Image
                     src={src || "/placeholder.svg"}
