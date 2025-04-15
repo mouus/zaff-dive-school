@@ -176,7 +176,7 @@ export default function AboutPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center px-4">
+      <section className="relative h-[68vh] flex items-center justify-center px-4">
         <div
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
@@ -202,10 +202,6 @@ export default function AboutPage() {
                   Mr. Abdulla Zafar Ali pioneered the discovery of the first Tiger shark in Fuvahmulah. He is currently
                   working as an instructor in Fuvahmulah. Apart from being a dive instructor, he is one of the few
                   divers who are continually concerned about the advancement of this field in Fuvahmulah.
-                </p>
-                <p className="text-lg text-gray-700 mb-6">
-                  Mr. Hassan Shah, (Nooraleege, Funnadu, Fuvahmulah) was the first person who conducted Discover Scuba
-                  Diving (DSD) at Fuvahmulah, playing a crucial role in establishing diving activities on the island.
                 </p>
                 <div className="flex gap-4 mb-6">
                   <div className="w-1/3 bg-[#0b385b] h-1"></div>

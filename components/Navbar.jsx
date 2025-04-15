@@ -89,15 +89,18 @@ function Navbar() {
             <div className="flex space-x-6 text-white text-lg tracking-wider">
               <Link href="/" className="hover:text-gray-300 transition-colors">
                 Home
-              </Link>
-              <Link href="/about" className="hover:text-gray-300 transition-colors">
-                About
+              </Link>   
+              <Link href="/our-crew" className="hover:text-gray-300 transition-colors">
+                Crew
               </Link>
               <Link href="/courses" className="hover:text-gray-300 transition-colors">
                 Courses
               </Link>
               <Link href="/contact" className="hover:text-gray-300 transition-colors">
                 Contact
+              </Link>
+              <Link href="/about" className="hover:text-gray-300 transition-colors">
+                About
               </Link>
             </div>
           </nav>
@@ -141,12 +144,13 @@ function Navbar() {
               Home
             </Link>
             <Link
-              href="/about"
+              href="/our-crew"
               className="hover:text-gray-300 transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              Crew
             </Link>
+   
             <Link
               href="/courses"
               className="hover:text-gray-300 transition-colors py-2"
@@ -160,6 +164,13 @@ function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
+            </Link>
+            <Link
+              href="/about"
+              className="hover:text-gray-300 transition-colors py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
             </Link>
           </nav>
 
