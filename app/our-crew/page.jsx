@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { FaLinkedin, FaInstagram, FaEnvelope, FaArrowRight, FaAward, FaShip, FaWater } from "react-icons/fa"
+import { FaLinkedin, FaInstagram, FaEnvelope, FaArrowRight, FaAward, FaShip, FaWater, FaWhatsapp } from "react-icons/fa"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
@@ -396,6 +396,16 @@ export default function CrewPage() {
           </div>
         </section>
       </div>
+                  {/* WhatsApp Button */}
+                  <a
+              href="https://wa.me/9607930760"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition flex items-center justify-center z-50"
+              aria-label="Contact us on WhatsApp"
+            >
+              <FaWhatsapp size={28} />
+            </a>
 
       {/* Footer */}
       <Footer />

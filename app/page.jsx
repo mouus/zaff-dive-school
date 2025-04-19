@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -14,6 +14,12 @@ import {
   FaCalendarAlt,
   FaUsers,
   FaStar,
+  FaArrowLeft,
+  FaPlay,
+  FaPause,
+  FaVolumeMute,
+  FaVolumeUp,
+  FaWhatsapp,
 } from "react-icons/fa"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
@@ -63,6 +69,35 @@ const orbitalAnimations = `
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState("openwater")
   const [isVisible, setIsVisible] = useState(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [isMuted, setIsMuted] = useState(true)
+  const sliderRef = useRef(null)
+  const sliderInterval = useRef(null)
+  const videoRefs = useRef([])
+
+  // Media slider content - featuring more videos
+  const mediaSlides = [
+      {
+        type: "video",
+        src: "/dolphin-show.MOV",
+        title: "Dolphin Show Spectacle",
+        description: "Enjoy an exciting dolphin performance, showcasing their intelligence and playful nature.",
+      },
+      {
+        type: "video",
+        src: "/img77.MP4",
+        title: "Underwater Paradise",
+        description: "Explore the vibrant coral reefs and diverse marine life of Fuvahmulah.",
+      },
+      {
+        type: "image",
+        src: "/fvm-pic.jpg",
+        title: "Fuvahmulah Island View",
+        description: "A breathtaking view of Fuvahmulah Island, showcasing its lush greenery and pristine coastline.",
+      }
+    
+  ]
 
   useEffect(() => {
     setIsVisible(true)
@@ -72,12 +107,89 @@ export default function HomePage() {
     style.innerHTML = orbitalAnimations
     document.head.appendChild(style)
 
+    // Start the slider
+    startSliderInterval()
+
     return () => {
       if (document.head.contains(style)) {
         document.head.removeChild(style)
       }
+      clearSliderInterval()
     }
   }, [])
+
+  const startSliderInterval = () => {
+    clearSliderInterval()
+    if (isPlaying) {
+      sliderInterval.current = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % mediaSlides.length)
+      }, 8000) // Longer interval for videos
+    }
+  }
+
+  const clearSliderInterval = () => {
+    if (sliderInterval.current) {
+      clearInterval(sliderInterval.current)
+      sliderInterval.current = null
+    }
+  }
+
+  useEffect(() => {
+    startSliderInterval()
+
+    // Play the current video and pause others
+    videoRefs.current.forEach((videoRef, index) => {
+      if (videoRef) {
+        if (index === currentSlide && mediaSlides[index].type === "video") {
+          videoRef.currentTime = 0
+          videoRef.play().catch((e) => console.log("Video play error:", e))
+        } else if (videoRef) {
+          videoRef.pause()
+        }
+      }
+    })
+  }, [currentSlide, isPlaying])
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index)
+    clearSliderInterval()
+    startSliderInterval()
+  }
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % mediaSlides.length)
+    clearSliderInterval()
+    startSliderInterval()
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + mediaSlides.length) % mediaSlides.length)
+    clearSliderInterval()
+    startSliderInterval()
+  }
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying)
+
+    const currentVideo = videoRefs.current[currentSlide]
+    if (currentVideo && mediaSlides[currentSlide].type === "video") {
+      if (isPlaying) {
+        currentVideo.pause()
+      } else {
+        currentVideo.play().catch((e) => console.log("Video play error:", e))
+      }
+    }
+  }
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted)
+
+    videoRefs.current.forEach((videoRef) => {
+      if (videoRef) {
+        videoRef.muted = !isMuted
+      }
+    })
+  }
 
   // Updated diving courses based on client's information
   const divingCourses = {
@@ -187,45 +299,100 @@ export default function HomePage() {
       {/* Header Section */}
       <Navbar />
 
-      {/* Background Video */}
-      <div className="absolute inset-0 -z-10 w-full h-[768px] bg-black">
-        <video autoPlay loop muted playsInline className="object-cover w-full h-full opacity-70">
-          <source src="/img77.MP4" type="video/mp4" />
-        </video>
-      </div>
-
-      {/* Hero Section with Orbital Effect */}
-      <section className="relative py-42 h-[600px] flex items-center justify-center px-4 overflow-hidden">
-        <div
-          className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"} relative z-10`}
-        >
-          <h1
-            className={`${nasaFont.className} text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider uppercase`}
-          >
-            Discover the Underwater Paradise of Fuvahmulah
-          </h1>
-          <p className="text-xl md:text-2xl text-white mb-8 tracking-wide">
-            Experience world-class diving with tiger sharks and vibrant marine life in the pristine waters of the
-            Maldives
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/courses"
-              className="bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2"
+      {/* FEATURED: Full-Width Video Slider */}
+      <section className="relative w-full bg-black">
+        <div className="relative w-full h-screen max-h-[80vh]">
+          {mediaSlides.map((slide, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+                currentSlide === index ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
             >
-              Explore Courses <FaArrowRight />
-            </Link>
-          </div>
-        </div>
+              {slide.type === "image" ? (
+                <div className="relative w-full h-full">
+                  <Image src={slide.src || "/placeholder.svg"} alt={slide.title} fill className="object-cover" />
+                </div>
+              ) : (
+                <video
+                  ref={(el) => (videoRefs.current[index] = el)}
+                  className="w-full h-full object-cover"
+                  autoPlay={currentSlide === index}
+                  loop
+                  muted
+                  playsInline
+                >
+                  <source src={slide.src} type="video/mp4" />
+                </video>
+              )}
 
-        {/* Orbital Elements */}
-        <div className="absolute inset-0 w-full h-full">
-          <div className="absolute w-20 h-20 bg-blue-500/30 rounded-full top-1/4 left-1/4 animate-orbit-1"></div>
-          <div className="absolute w-12 h-12 bg-teal-500/30 rounded-full bottom-1/3 right-1/3 animate-orbit-2"></div>
-          <div className="absolute w-16 h-16 bg-cyan-500/30 rounded-full top-1/2 right-1/4 animate-orbit-3"></div>
-          <div className="absolute w-24 h-24 bg-indigo-500/20 rounded-full bottom-1/4 left-1/3 animate-orbit-4"></div>
-          <div className="absolute w-10 h-10 bg-white/20 rounded-full top-1/3 right-1/4 animate-orbit-5"></div>
-          <div className="absolute w-14 h-14 bg-blue-400/20 rounded-full bottom-1/2 left-1/4 animate-orbit-6"></div>
+              {/* Content Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-16">
+                <div className="max-w-screen-xl mx-auto w-full text-left">
+                  <h2 className={`${nasaFont.className} text-3xl md:text-5xl font-bold text-white mb-4`}>
+                    {slide.title}
+                  </h2>
+                  <p className="text-xl text-white/90 max-w-2xl mb-8">{slide.description}</p>
+
+                  {/* Slide Indicators */}
+                  <div className="flex items-center gap-6 mb-4">
+                    <div className="flex gap-2">
+                      {mediaSlides.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={() => goToSlide(i)}
+                          className={`w-3 h-3 rounded-full transition-all ${
+                            currentSlide === i ? "bg-white w-10" : "bg-white/50 hover:bg-white/80"
+                          }`}
+                          aria-label={`Go to slide ${i + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    <div className="text-white/80 text-sm">
+                      {currentSlide + 1} / {mediaSlides.length}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Video Controls */}
+          <div className="absolute bottom-8 right-8 z-20 flex items-center gap-4">
+            {/* {mediaSlides[currentSlide].type === "video" && (
+              <button
+                onClick={toggleMute}
+                className="bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                aria-label={isMuted ? "Unmute video" : "Mute video"}
+              >
+                {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+              </button>
+            )}
+            <button
+              onClick={togglePlayPause}
+              className="bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+              aria-label={isPlaying ? "Pause slideshow" : "Play slideshow"}
+            >
+              {isPlaying ? <FaPause /> : <FaPlay />}
+            </button> */}
+          </div>
+
+          {/* Navigation Controls */}
+          <button
+            onClick={prevSlide}
+            className="absolute top-1/2 left-4 md:left-8 transform -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors"
+            aria-label="Previous slide"
+          >
+            <FaArrowLeft className="text-xl" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute top-1/2 right-4 md:right-8 transform -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors"
+            aria-label="Next slide"
+          >
+            <FaArrowRight className="text-xl" />
+          </button>
         </div>
       </section>
 
@@ -280,8 +447,9 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
         {/* Partner Logos */}
-        <div className="flex justify-center items-center gap-8">
+        <div className="flex justify-center items-center gap-8 py-8">
           {["/dan.png", "/padi.png", "/subapro.png", "/mares.jpg"].map((src, index) => (
             <div key={index} className="flex">
               <Image
@@ -696,6 +864,16 @@ export default function HomePage() {
           </div>
         </section>
       </div>
+            {/* WhatsApp Button */}
+            <a
+        href="https://wa.me/9607930760"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition flex items-center justify-center z-50"
+        aria-label="Contact us on WhatsApp"
+      >
+        <FaWhatsapp size={28} />
+      </a>
 
       {/* Footer */}
       <Footer />

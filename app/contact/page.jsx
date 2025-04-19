@@ -3,7 +3,15 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaArrowRight, FaChevronDown, FaChevronUp } from "react-icons/fa"
+import {
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+  FaArrowRight,
+  FaChevronDown,
+  FaChevronUp,
+  FaWhatsapp,
+} from "react-icons/fa"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
@@ -39,6 +47,13 @@ export default function ContactPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const [openFaqs, setOpenFaqs] = useState({})
+
+  // WhatsApp message template
+  const generateWhatsAppMessage = () => {
+    return encodeURIComponent(
+      `Hello Scubachannel Fuvahmulah! I'm interested in learning more about your diving services.`,
+    )
+  }
 
   useEffect(() => {
     setIsVisible(true)
@@ -126,7 +141,7 @@ export default function ContactPage() {
       id: "faq-1",
       question: "How can I book a diving course?",
       answer:
-        "You can book a diving course by filling out the contact form on this page, calling us directly, or sending us an email. We'll get back to you within 24 hours to confirm your booking and provide further instructions.",
+        "You can book a diving course by filling out the contact form on this page, calling us directly, sending us an email, or messaging us on WhatsApp. We'll get back to you within 24 hours to confirm your booking and provide further instructions.",
     },
     {
       id: "faq-2",
@@ -172,7 +187,7 @@ export default function ContactPage() {
           className={`max-w-4xl mx-auto text-center transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
           <h1 className="font-nasa text-4xl md:text-6xl font-bold text-white mb-6 tracking-wider">Contact Us</h1>
-          <p className="text-xl md:text-2xl text-white mb-8 tracking-wide">
+          <p className="font-nasa text-xl md:text-2xl text-white mb-8 tracking-wide">
             Have questions about our diving courses or want to book your next underwater adventure? Get in touch with
             our team today.
           </p>
@@ -183,12 +198,14 @@ export default function ContactPage() {
             >
               Send a Message <FaArrowRight />
             </a>
-            <Link
-              href="/courses"
-              className="bg-transparent hover:bg-white/20 text-white border-2 border-white font-bold py-3 px-8 rounded-full transition-colors w-full sm:w-auto"
+            <a
+              href={`https://wa.me/9607930760?text=${generateWhatsAppMessage()}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
             >
-              View Courses
-            </Link>
+              <FaWhatsapp className="text-xl" /> WhatsApp Us
+            </a>
           </div>
         </div>
       </section>
@@ -370,41 +387,51 @@ export default function ContactPage() {
                       ></textarea>
                     </div>
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-8 rounded-full transition-colors w-full flex items-center justify-center"
-                    >
-                      {isSubmitting ? (
-                        <span className="flex items-center gap-2">
-                          <svg
-                            className="animate-spin h-5 w-5 text-white"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            ></circle>
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            ></path>
-                          </svg>
-                          Sending...
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-2">
-                          Send Message <FaArrowRight />
-                        </span>
-                      )}
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-8 rounded-full transition-colors flex-1 flex items-center justify-center"
+                      >
+                        {isSubmitting ? (
+                          <span className="flex items-center gap-2">
+                            <svg
+                              className="animate-spin h-5 w-5 text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
+                            </svg>
+                            Sending...
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-2">
+                            Send Message <FaArrowRight />
+                          </span>
+                        )}
+                      </button>
+                      <a
+                        href={`https://wa.me/9607930760?text=${generateWhatsAppMessage()}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2"
+                      >
+                        <FaWhatsapp /> WhatsApp
+                      </a>
+                    </div>
                   </form>
                 )}
               </div>
@@ -412,7 +439,8 @@ export default function ContactPage() {
               {/* Map and Business Hours */}
               <div>
                 {/* Map */}
-                <div className="bg-white p-4 rounded-xl shadow-lg">
+                <div className="bg-white p-4 rounded-xl shadow-lg mb-6">
+                  <h3 className="text-xl font-bold text-[#0b385b] mb-4">Fuvahmulah Island Map</h3>
                   <div className="aspect-video relative rounded-md overflow-hidden">
                     <Image
                       src="/shark-map.jpg"
@@ -422,6 +450,187 @@ export default function ContactPage() {
                     />
                   </div>
                 </div>
+
+                {/* Second Map */}
+                <div className="bg-white p-4 rounded-xl shadow-lg">
+                  <h3 className="text-xl font-bold text-[#0b385b] mb-4">Diving Spots Map</h3>
+                  <div className="aspect-video relative rounded-md overflow-hidden">
+                    <Image
+                      src="/island.jpg"
+                      alt="Diving Spots Map"
+                      fill
+                      className="object-fill w-full transition-transform duration-300 transform hover:scale-105"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Business Hours */}
+              <div className="bg-white p-6 rounded-xl shadow-lg">
+                <h3 className="text-xl font-bold text-[#0b385b] mb-4">Business Hours</h3>
+                <div className="space-y-3">
+                  {businessHours.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between items-center pb-2 border-b border-gray-100 last:border-0"
+                    >
+                      <span className="font-medium">{item.day}</span>
+                      <span className="text-gray-700">{item.hours}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Transfer Information Section */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-screen-xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-nasa text-3xl md:text-4xl font-bold text-[#0b385b] mb-4">Travel & Transfers</h2>
+              <div className="w-20 h-1 bg-[#0b385b] mx-auto mb-6"></div>
+              <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+                Information on how to reach Fuvahmulah Island and our transfer services
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                <div className="bg-[#0b385b] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-[#0b385b] mb-3 text-center">Step 1: International Flight</h3>
+                <p className="text-gray-700">
+                  Book your international flight to Malé International Airport (Velana International Airport, MLE). Many
+                  international airlines operate flights to the Maldives from major cities worldwide.
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                <div className="bg-[#0b385b] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-[#0b385b] mb-3 text-center">Step 2: Domestic Flight</h3>
+                <p className="text-gray-700">
+                  From Malé, take a domestic flight to Fuvahmulah Airport (FVM). Flights are operated by Maldivian
+                  (Island Aviation) and Manta Air. The flight takes approximately 1 hour. We can assist with booking
+                  your domestic flight.
+                </p>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                <div className="bg-[#0b385b] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-[#0b385b] mb-3 text-center">Step 3: Airport Pickup</h3>
+                <p className="text-gray-700">
+                  Our team will meet you at Fuvahmulah Airport and transfer you to your accommodation. This service is
+                  complimentary for all our guests. Just provide us with your flight details in advance.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-12 bg-gray-50 p-8 rounded-lg shadow-md">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-2xl font-bold text-[#0b385b] mb-4">Transfer Services</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold">Airport Transfers:</span> Complimentary pickup and drop-off at
+                        Fuvahmulah Airport
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold">Dive Site Transportation:</span> Daily transfers to all dive sites
+                        included in your package
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold">Island Excursions:</span> Transportation for island tours and
+                        activities can be arranged
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold">Special Requests:</span> Custom transportation needs can be
+                        accommodated with advance notice
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-[#0b385b] mb-4">Important Information</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold">Flight Delays:</span> Please inform us of any changes to your flight
+                        schedule
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold">Luggage:</span> Standard domestic flight luggage allowance is 20kg +
+                        5kg hand luggage
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold">Transit Time:</span> Allow at least 3 hours between international
+                        and domestic flights
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <FaArrowRight className="text-[#0b385b] mt-1 flex-shrink-0" />
+                      <div>
+                        <span className="font-bold">Assistance:</span> Our team can help with any questions about your
+                        journey to Fuvahmulah
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-8 text-center">
+                <Link
+                  href="#contact-form"
+                  className="inline-flex items-center gap-2 bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-8 rounded-full transition-colors"
+                >
+                  Contact Us About Transfers <FaArrowRight />
+                </Link>
               </div>
             </div>
           </div>
@@ -470,12 +679,22 @@ export default function ContactPage() {
 
             <div className="text-center mt-10">
               <p className="text-gray-700 mb-4">Don't see your question here?</p>
-              <a
-                href="#contact-form"
-                className="inline-flex items-center gap-2 bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-8 rounded-full transition-colors"
-              >
-                Ask Us Directly <FaArrowRight />
-              </a>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <a
+                  href="#contact-form"
+                  className="inline-flex items-center gap-2 bg-[#0b385b] hover:bg-[#0a2e4a] text-white font-bold py-3 px-8 rounded-full transition-colors"
+                >
+                  Ask Us Directly <FaArrowRight />
+                </a>
+                <a
+                  href={`https://wa.me/9607930760?text=${generateWhatsAppMessage()}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors"
+                >
+                  <FaWhatsapp /> Ask via WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -491,21 +710,47 @@ export default function ContactPage() {
                     For emergency bookings or urgent inquiries, please contact our emergency hotline. We're available
                     24/7 to assist you.
                   </p>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-white/20 p-3 rounded-full">
-                      <FaPhone className="text-white" />
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="bg-white/20 p-3 rounded-full">
+                        <FaPhone className="text-white" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-white/80">Emergency Hotline</p>
+                        <p className="text-xl font-bold">+960 7930760</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-white/80">Emergency Hotline</p>
-                      <p className="text-xl font-bold">+960 7930760</p>
+                    <div className="flex items-center gap-3">
+                      <div className="bg-white/20 p-3 rounded-full">
+                        <FaWhatsapp className="text-white" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-white/80">WhatsApp</p>
+                        <p className="text-xl font-bold">+960 7930760</p>
+                      </div>
                     </div>
                   </div>
-                  <Link
-                    href="tel:+9607930760"
-                    className="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-[#0b385b] font-bold py-3 px-6 rounded-full transition-colors"
-                  >
-                    Call Now <FaArrowRight />
-                  </Link>
+                  <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                    <Link
+                      href="tel:+9607930760"
+                      className="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-[#0b385b] font-bold py-3 px-6 rounded-full transition-colors"
+                    >
+                      <FaPhone /> Call Now
+                    </Link>
+                    <a
+                      href={`https://wa.me/9607930760?text=${encodeURIComponent("URGENT: I need immediate assistance with...")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+                    >
+                      <FaWhatsapp /> WhatsApp Now
+                    </a>
+                  </div>
+                </div>
+                <div className="hidden md:block h-full">
+                  <div className="h-full relative">
+                    <Image src="/shark-hue.jpg" alt="Emergency Contact" fill className="object-cover opacity-50" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -526,6 +771,14 @@ export default function ContactPage() {
                 className="bg-white hover:bg-gray-100 text-[#0b385b] font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 Contact Us Now <FaArrowRight />
+              </a>
+              <a
+                href={`https://wa.me/9607930760?text=${generateWhatsAppMessage()}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
+              >
+                <FaWhatsapp /> WhatsApp Us
               </a>
               <Link
                 href="/courses"
@@ -559,6 +812,20 @@ export default function ContactPage() {
           </div>
         </section>
       </div>
+
+      {/* WhatsApp Button */}
+      <a
+        href={`https://wa.me/9607930760?text=${generateWhatsAppMessage()}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition flex items-center justify-center z-50 group"
+        aria-label="Contact us on WhatsApp"
+      >
+        <FaWhatsapp size={28} />
+        <span className="absolute right-16 bg-white text-gray-800 px-3 py-2 rounded-lg shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap">
+          Chat with us
+        </span>
+      </a>
 
       {/* Footer */}
       <Footer />
